@@ -123,8 +123,8 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="LoginWindow.xaml.h">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <ClInclude Include="StartWindow.xaml.h">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MainPage.xaml.h">
@@ -156,6 +156,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TransportService.h" />
+    <ClInclude Include="UserViewModel.h">
+      <DependentUpon>UserViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -171,7 +175,7 @@
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="StartWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -215,8 +219,8 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="LoginWindow.xaml.cpp">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <ClCompile Include="StartWindow.xaml.cpp">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MainPage.xaml.cpp">
@@ -251,6 +255,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TransportService.cpp" />
+    <ClCompile Include="UserViewModel.cpp">
+      <DependentUpon>UserViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">
@@ -276,8 +284,8 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="LoginWindow.idl">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Midl Include="StartWindow.idl">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainPage.idl">
@@ -304,7 +312,9 @@
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="TransportService.idl" />
+    <Midl Include="UserViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt">

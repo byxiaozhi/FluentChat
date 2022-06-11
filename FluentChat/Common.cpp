@@ -1,6 +1,6 @@
 #include "Common.h"
 #include "pch.h"
-#include "LoginWindow.xaml.h"
+#include "StartWindow.xaml.h"
 #include <microsoft.ui.xaml.window.h>
 
 namespace winrt::FluentChat::Utilities {

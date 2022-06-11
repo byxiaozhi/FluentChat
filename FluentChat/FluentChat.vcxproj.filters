@@ -4,7 +4,7 @@
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="StartWindow.xaml">
       <Filter>Windows</Filter>
     </Page>
     <Page Include="MainWindow.xaml">
@@ -44,8 +44,8 @@
     <Midl Include="AppViewModel.idl">
       <Filter>ViewModels</Filter>
     </Midl>
-    <Midl Include="TransportService.idl">
-      <Filter>Services\TransportService</Filter>
+    <Midl Include="UserViewModel.idl">
+      <Filter>ViewModels</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass StartWindow : Microsoft.UI.Xaml.Window
+    {
+        StartWindow();
+    }
+}

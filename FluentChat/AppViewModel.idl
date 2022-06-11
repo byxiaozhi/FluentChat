@@ -1,10 +1,11 @@
+import "UserViewModel.idl";
+
 namespace FluentChat
 {
-    [bindable]
-    [default_interface]
-    runtimeclass AppViewModel 
-    {
-        AppViewModel();
-        Int32 MyProperty;
-    }
+	[default_interface]
+	runtimeclass AppViewModel : Windows.UI.Xaml.Data.INotifyPropertyChanged
+	{
+		AppViewModel();
+		UserViewModel UserViewModel{ get; };
+	}
 }

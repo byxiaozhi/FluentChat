@@ -1,8 +1,0 @@
-namespace FluentChat
-{
-	[default_interface]
-	runtimeclass TransportService
-	{
-		TransportService();
-	}
-}
