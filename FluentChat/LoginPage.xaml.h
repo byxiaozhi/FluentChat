@@ -11,9 +11,6 @@ namespace winrt::FluentChat::implementation
         FluentChat::AppViewModel AppViewModel();
 
         void LoginButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-
-    private:
-        FluentChat::AppViewModel m_appViewModel;
     };
 }
 

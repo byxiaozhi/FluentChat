@@ -14,19 +14,17 @@ namespace winrt::FluentChat::implementation
 {
     LoginPage::LoginPage()
     {
-        m_appViewModel = Microsoft::UI::Xaml::Application::Current().try_as<winrt::FluentChat::implementation::App>()->AppViewModel();
         InitializeComponent();
     }
 
     FluentChat::AppViewModel LoginPage::AppViewModel()
     {
-        return m_appViewModel;
+        return Application::Current().try_as<App>()->AppViewModel();
     }
 
     void LoginPage::LoginButton_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
-        auto window = make<MainWindow>();
-        window.Activate();
+        AppViewModel().TransportService().TryConnect();
     }
 }
 

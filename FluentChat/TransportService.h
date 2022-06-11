@@ -1,20 +1,27 @@
-#pragma once
+﻿#pragma once
+#include <pch.h>
 #include <winrt/Windows.Networking.Sockets.h>
-#include <winrt/Windows.Storage.Streams.h>
+#include "TransportService.g.h"
+#include "AppViewModel.g.h"
 
-using namespace winrt;
-using namespace Windows::Foundation;
-using namespace Windows::Storage::Streams;
-
-namespace winrt::FluentChat
+namespace winrt::FluentChat::implementation
 {
-    struct TransportService : IInspectable
+    struct TransportService : TransportServiceT<TransportService>
     {
         TransportService() = default;
 
-        IAsyncAction StartClient();
+        FluentChat::AppViewModel AppViewModel();
+
+        Windows::Foundation::IAsyncAction TryConnect();
 
     private:
         Windows::Networking::Sockets::StreamSocket m_streamSocket;
+    };
+}
+
+namespace winrt::FluentChat::factory_implementation
+{
+    struct TransportService : TransportServiceT<TransportService, implementation::TransportService>
+    {
     };
 }

@@ -155,7 +155,10 @@
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TransportService.h" />
+    <ClInclude Include="TransportService.h">
+      <DependentUpon>TransportService.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="UserViewModel.h">
       <DependentUpon>UserViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -254,7 +257,10 @@
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TransportService.cpp" />
+    <ClCompile Include="TransportService.cpp">
+      <DependentUpon>TransportService.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="UserViewModel.cpp">
       <DependentUpon>UserViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -311,6 +317,9 @@
     <Midl Include="StartPage.idl">
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TransportService.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="UserViewModel.idl">
       <SubType>Designer</SubType>

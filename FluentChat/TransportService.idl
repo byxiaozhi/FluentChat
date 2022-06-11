@@ -1,0 +1,11 @@
+import "AppViewModel.idl";
+
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass TransportService 
+    {
+        TransportService();
+    Windows.Foundation.IAsyncAction TryConnect();
+    }
+}

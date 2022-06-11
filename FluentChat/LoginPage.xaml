@@ -13,11 +13,11 @@
         </TextBlock>
         <StackPanel Spacing="4">
             <TextBlock>邮箱</TextBlock>
-            <TextBox Text="{x:Bind AppViewModel.UserViewModel.Email}"/>
+            <TextBox Text="{x:Bind AppViewModel.UserViewModel.Email, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Spacing="4">
             <TextBlock>密码</TextBlock>
-            <PasswordBox Password="{x:Bind AppViewModel.UserViewModel.Password}"/>
+            <PasswordBox Password="{x:Bind AppViewModel.UserViewModel.Password, Mode=TwoWay}"/>
         </StackPanel>
         <Grid>
             <CheckBox>记住密码</CheckBox>

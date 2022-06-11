@@ -47,6 +47,9 @@
     <Midl Include="UserViewModel.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="TransportService.idl">
+      <Filter>Services</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -54,17 +57,11 @@
     <ClCompile Include="Common.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="TransportService.cpp">
-      <Filter>Services\TransportService</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Common.h">
       <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TransportService.h">
-      <Filter>Services\TransportService</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +120,6 @@
     </Filter>
     <Filter Include="Services">
       <UniqueIdentifier>{75ab743d-c542-4222-8bab-1b7a6dd6a754}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Services\TransportService">
-      <UniqueIdentifier>{ee3c3aae-d436-4e9c-af7e-3178d79cc812}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
