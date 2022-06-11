@@ -44,6 +44,9 @@
     <Midl Include="AppViewModel.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="TransportService.idl">
+      <Filter>Services\TransportService</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -51,11 +54,17 @@
     <ClCompile Include="Common.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="TransportService.cpp">
+      <Filter>Services\TransportService</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Common.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TransportService.h">
+      <Filter>Services\TransportService</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +121,12 @@
     <Filter Include="Resources\Converters">
       <UniqueIdentifier>{6e30e8e2-5910-4f97-848d-1c5a5b798f82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services">
+      <UniqueIdentifier>{75ab743d-c542-4222-8bab-1b7a6dd6a754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\TransportService">
+      <UniqueIdentifier>{ee3c3aae-d436-4e9c-af7e-3178d79cc812}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -120,9 +135,9 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -9,11 +9,11 @@ public class TransportService {
 
 
     public void onConnect(Socket socket) {
-
+        System.out.println("onConnect");
     }
 
     public void onDisconnect(Socket socket) {
-
+        System.out.println("onDisconnect");
     }
 
     public void onMessage(Socket socket, String msg) {
