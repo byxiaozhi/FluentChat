@@ -18,7 +18,13 @@ namespace winrt::FluentChat::implementation
 
 		Windows::Foundation::IAsyncAction MessageLoop();
 
+		void OnConnect();
+
+		void OnConnectError(winrt::hresult_error const& ex);
+
 		void OnMessage(hstring msg);
+
+		void OnDisconnect();
 
 	private:
 		Windows::Networking::Sockets::StreamSocket m_streamSocket{ nullptr };

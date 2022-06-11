@@ -21,19 +21,38 @@ namespace winrt::FluentChat::implementation
 
 	IAsyncAction TransportService::TryConnect()
 	{
-		m_streamSocket = Windows::Networking::Sockets::StreamSocket();
-		co_await m_streamSocket.ConnectAsync(HostName{ L"localhost" }, L"8000");
-		MessageLoop();
+		try
+		{
+			m_streamSocket = Windows::Networking::Sockets::StreamSocket();
+			co_await m_streamSocket.ConnectAsync(HostName{ L"localhost" }, L"8000");
+			MessageLoop();
+			OnConnect();
+		}
+		catch (winrt::hresult_error const& ex)
+		{
+			m_streamSocket.Close();
+			m_streamSocket = nullptr;
+			OnConnectError(ex);
+		}
 	}
 
 	Windows::Foundation::IAsyncAction TransportService::PostMessage(hstring msg)
 	{
-		DataWriter dataWriter{ m_streamSocket.OutputStream() };
-		dataWriter.WriteInt32(854749800);
-		dataWriter.WriteInt32(msg.size());
-		dataWriter.WriteString(msg);
-		co_await dataWriter.StoreAsync();
-		dataWriter.DetachStream();
+		try
+		{
+			DataWriter dataWriter{ m_streamSocket.OutputStream() };
+			dataWriter.WriteInt32(854749800);
+			dataWriter.WriteInt32(msg.size());
+			dataWriter.WriteString(msg);
+			co_await dataWriter.StoreAsync();
+			dataWriter.DetachStream();
+		}
+		catch (winrt::hresult_error const& ex)
+		{
+			m_streamSocket.Close();
+			m_streamSocket = nullptr;
+			OnDisconnect();
+		}
 	}
 
 	Windows::Foundation::IAsyncAction TransportService::MessageLoop()
@@ -41,15 +60,39 @@ namespace winrt::FluentChat::implementation
 		DataReader dataReader{ m_streamSocket.InputStream() };
 		while (true)
 		{
-			co_await dataReader.LoadAsync(sizeof(int));
-			auto length = dataReader.ReadInt32();
-			auto loaded = co_await dataReader.LoadAsync(length);
-			auto body = dataReader.ReadString(loaded);
-			OnMessage(body);
+			try
+			{
+				co_await dataReader.LoadAsync(sizeof(int));
+				auto length = dataReader.ReadInt32();
+				auto loaded = co_await dataReader.LoadAsync(length);
+				auto body = dataReader.ReadString(loaded);
+				OnMessage(body);
+			}
+			catch (winrt::hresult_error const& ex)
+			{
+				m_streamSocket.Close();
+				m_streamSocket = nullptr;
+				OnDisconnect();
+			}
 		}
 	}
 
+	void TransportService::OnConnect()
+	{
+
+	}
+
+	void TransportService::OnConnectError(winrt::hresult_error const& ex)
+	{
+
+	}
+
 	void TransportService::OnMessage(hstring msg)
+	{
+
+	}
+
+	void TransportService::OnDisconnect()
 	{
 
 	}
