@@ -1,0 +1,10 @@
+namespace FluentChat
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppViewModel 
+    {
+        AppViewModel();
+        Int32 MyProperty;
+    }
+}

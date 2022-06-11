@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass GroupPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        GroupPage();
+    }
+}

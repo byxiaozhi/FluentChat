@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="FluentChat.SignupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentChat"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="8" Padding="32,16,32,32">
+        <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center">
+            注册
+        </TextBlock>
+        <StackPanel Spacing="4">
+            <TextBlock>昵称</TextBlock>
+            <TextBox/>
+        </StackPanel>
+        <StackPanel Spacing="4">
+            <TextBlock>邮箱</TextBlock>
+            <TextBox/>
+        </StackPanel>
+        <StackPanel Spacing="4">
+            <TextBlock>密码</TextBlock>
+            <PasswordBox/>
+        </StackPanel>
+        <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Stretch" Margin="0,8,0,0" Padding="8">注册</Button>
+    </StackPanel>
+</Page>

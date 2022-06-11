@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LoginWindow.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+    <Page Include="RecentPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+    <Page Include="GroupPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+    <Page Include="FriendPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+    <Page Include="ChatPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+    <Page Include="LoginPage.xaml">
+      <Filter>Pages\StartPages</Filter>
+    </Page>
+    <Page Include="SignupPage.xaml">
+      <Filter>Pages\StartPages</Filter>
+    </Page>
+    <Page Include="StartPage.xaml">
+      <Filter>Pages\StartPages</Filter>
+    </Page>
+    <Page Include="SettingsPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="App.idl" />
+    <Midl Include="MainWindow.idl" />
+    <Midl Include="AppViewModel.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Common.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Common.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{96ac13aa-e61b-4b13-adcd-4908ec4aa0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{3d227f44-76f5-4d24-b445-49f6aec143b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{66705a2b-bd2c-4437-97c2-54213414b9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>{72901c36-0607-4a6a-8658-1776369db8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{32de69a7-0d41-4db1-b625-8832acc1b38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages">
+      <UniqueIdentifier>{1452991c-b7a7-4687-9261-90faa743822e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\MainPages">
+      <UniqueIdentifier>{e6a83d4a-766a-4c3c-aab2-295755063589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\StartPages">
+      <UniqueIdentifier>{9ea4fa87-6b58-49b4-8439-18735ed71b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{785825a8-344c-480a-af4b-33932ab1f722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Converters">
+      <UniqueIdentifier>{6e30e8e2-5910-4f97-848d-1c5a5b798f82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+</Project>

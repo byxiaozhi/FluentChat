@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass FriendPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        FriendPage();
+    }
+}

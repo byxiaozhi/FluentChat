@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass RecentPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        RecentPage();
+    }
+}
