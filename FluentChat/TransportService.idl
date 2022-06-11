@@ -7,5 +7,6 @@ namespace FluentChat
     {
         TransportService();
     Windows.Foundation.IAsyncAction TryConnect();
+    Windows.Foundation.IAsyncAction PostMessage(String msg);
     }
 }

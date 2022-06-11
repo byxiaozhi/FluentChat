@@ -48,7 +48,7 @@ public class SocketListener implements CommandLineRunner {
                 var buffer = ByteBuffer.wrap(header);
                 if (buffer.getInt(0) != 854749800)
                     throw new Exception("识别码不正确");
-                var length = buffer.getInt(1);
+                var length = buffer.getInt(4);
                 var body = new String(in.readNBytes(length));
                 transportService.onMessage(client, body);
             }

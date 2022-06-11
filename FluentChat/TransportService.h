@@ -6,22 +6,28 @@
 
 namespace winrt::FluentChat::implementation
 {
-    struct TransportService : TransportServiceT<TransportService>
-    {
-        TransportService() = default;
+	struct TransportService : TransportServiceT<TransportService>
+	{
+		TransportService() = default;
 
-        FluentChat::AppViewModel AppViewModel();
+		FluentChat::AppViewModel AppViewModel();
 
-        Windows::Foundation::IAsyncAction TryConnect();
+		Windows::Foundation::IAsyncAction TryConnect();
 
-    private:
-        Windows::Networking::Sockets::StreamSocket m_streamSocket;
-    };
+		Windows::Foundation::IAsyncAction PostMessage(hstring msg);
+
+		Windows::Foundation::IAsyncAction MessageLoop();
+
+		void OnMessage(hstring msg);
+
+	private:
+		Windows::Networking::Sockets::StreamSocket m_streamSocket{ nullptr };
+	};
 }
 
 namespace winrt::FluentChat::factory_implementation
 {
-    struct TransportService : TransportServiceT<TransportService, implementation::TransportService>
-    {
-    };
+	struct TransportService : TransportServiceT<TransportService, implementation::TransportService>
+	{
+	};
 }
