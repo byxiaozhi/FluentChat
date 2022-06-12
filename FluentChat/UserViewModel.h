@@ -19,6 +19,9 @@ namespace winrt::FluentChat::implementation
         hstring Password();
         void Password(hstring const& value);
 
+        bool IsLogin();
+        void IsLogin(bool const& value);
+
         event_token PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& value);
         void PropertyChanged(event_token const& token);
 
@@ -27,6 +30,7 @@ namespace winrt::FluentChat::implementation
         hstring m_nickName;
         hstring m_email;
         hstring m_password;
+        bool m_isLogin;
         event<Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
     };
 }

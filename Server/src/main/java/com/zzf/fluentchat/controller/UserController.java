@@ -32,15 +32,15 @@ public class UserController {
         var nickname = args.get("nickname").toString();
         var email = args.get("email").toString();
         var password = args.get("password").toString();
-        if (nickname.length() == 0)
+        if (nickname.isEmpty())
             map.put("message", "昵称不能为空");
         else if (nickname.length() < 2)
             map.put("message", "昵称不能小于2位");
-        else if (email.length() == 0)
+        else if (email.isEmpty())
             map.put("message", "邮箱不能为空");
         else if (!isValidEmailAddress(email))
             map.put("message", "邮箱格式错误");
-        else if (password.length() == 0)
+        else if (password.isEmpty())
             map.put("message", "密码不能为空");
         else if (password.length() < 6)
             map.put("message", "密码不能小于6位");
@@ -62,7 +62,28 @@ public class UserController {
 
     public Map<String, Object> login(Map<String, Object> args, Map<String, Object> session) {
         var map = new HashMap<String, Object>();
-
+        map.put("success", false);
+        var email = args.get("email").toString();
+        var password = args.get("password").toString();
+        if (email.isEmpty())
+            map.put("message", "邮箱不能为空");
+        else if (!isValidEmailAddress(email))
+            map.put("message", "邮箱格式错误");
+        else if (password.isEmpty())
+            map.put("message", "密码不能为空");
+        else {
+            var user = userRepository.findByEmail(email);
+            if (user == null)
+                map.put("message", "邮箱不存在");
+            else if (!user.getPassword().equals(password))
+                map.put("message", "密码错误");
+            else {
+                map.put("success", true);
+                map.put("message", "登录成功");
+                map.put("nickname", user.getNickname());
+                session.put("email", email);
+            }
+        }
         return map;
     }
 

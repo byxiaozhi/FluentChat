@@ -12,15 +12,15 @@
         </TextBlock>
         <StackPanel Spacing="4">
             <TextBlock>邮箱</TextBlock>
-            <TextBox Text="{x:Bind AppViewModel.UserViewModel.Email, Mode=TwoWay}"/>
+            <TextBox Text="{x:Bind AppViewModel.UserViewModel.Email, Mode=TwoWay}" x:Name="TextBox_Email"/>
         </StackPanel>
         <StackPanel Spacing="4">
             <TextBlock>密码</TextBlock>
-            <PasswordBox Password="{x:Bind AppViewModel.UserViewModel.Password, Mode=TwoWay}"/>
+            <PasswordBox Password="{x:Bind AppViewModel.UserViewModel.Password, Mode=TwoWay}" x:Name="PasswordBox_Password"/>
         </StackPanel>
         <Grid>
             <CheckBox x:Name="cb_RememberPassword" Checked="RememberPassword_Checked" Unchecked="RememberPassword_Unchecked">记住密码</CheckBox>
         </Grid>
-        <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Stretch" Padding="8" x:Name="LoginButton" Click="LoginButton_Click">登录</Button>
+        <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Stretch" Padding="8" x:Name="Button_Login" Click="Login_Click">登录</Button>
     </StackPanel>
 </Page>

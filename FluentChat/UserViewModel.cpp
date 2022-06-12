@@ -50,6 +50,20 @@ namespace winrt::FluentChat::implementation
 		}
 	}
 
+	bool UserViewModel::IsLogin()
+	{
+		return m_isLogin;
+	}
+
+	void UserViewModel::IsLogin(bool const& value)
+	{
+		if (m_isLogin != value)
+		{
+			m_isLogin = value;
+			RaisePropertyChanged(L"IsLogin");
+		}
+	}
+
 	void UserViewModel::RaisePropertyChanged(hstring propertyName)
 	{
 		m_propertyChanged(*this, Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ propertyName });
