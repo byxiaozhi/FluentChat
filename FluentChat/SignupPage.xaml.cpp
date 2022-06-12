@@ -57,6 +57,11 @@ namespace winrt::FluentChat::implementation
 		m_startPage = e.Parameter().try_as<StartPage>();
 	}
 
+	void SignupPage::BackToLoginClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		m_startPage->NavigationView().SelectedItem(m_startPage->NavigationView().MenuItems().GetAt(0));
+	}
+
 	FluentChat::AppViewModel SignupPage::AppViewModel()
 	{
 		return Application::Current().try_as<App>()->AppViewModel();

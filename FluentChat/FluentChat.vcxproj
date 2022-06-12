@@ -128,6 +128,7 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MicaBackdrop.h" />
     <ClInclude Include="SettingItem.xaml.h">
       <DependentUpon>SettingItem.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -241,6 +242,7 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MicaBackdrop.cpp" />
     <ClCompile Include="SettingItem.xaml.cpp">
       <DependentUpon>SettingItem.xaml</DependentUpon>
       <SubType>Code</SubType>

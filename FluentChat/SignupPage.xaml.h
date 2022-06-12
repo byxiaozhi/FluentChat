@@ -14,6 +14,7 @@ namespace winrt::FluentChat::implementation
 		FluentChat::TransportService TransportService();
 		IAsyncAction Signup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 		virtual void OnNavigatedTo(Microsoft::UI::Xaml::Navigation::NavigationEventArgs e);
+		void BackToLoginClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
 	private:
 		IAsyncAction ContentDialog(hstring title, hstring content);

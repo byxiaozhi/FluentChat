@@ -45,6 +45,16 @@ namespace winrt::FluentChat::implementation
 		m_settings.Values().Remove(L"Password");
 	}
 
+	void LoginPage::OnNavigatedTo(Microsoft::UI::Xaml::Navigation::NavigationEventArgs e)
+	{
+		m_startPage = e.Parameter().try_as<StartPage>();
+	}
+
+	void LoginPage::GotoSignupClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		m_startPage->NavigationView().SelectedItem(m_startPage->NavigationView().MenuItems().GetAt(1));
+	}
+
 	FluentChat::AppViewModel LoginPage::AppViewModel()
 	{
 		return Application::Current().try_as<App>()->AppViewModel();

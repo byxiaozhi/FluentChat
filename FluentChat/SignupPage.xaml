@@ -8,6 +8,9 @@
     mc:Ignorable="d">
 
     <StackPanel Spacing="8" Padding="32">
+        <TextBlock FontSize="28" TextAlignment="Center">
+            注册账号
+        </TextBlock>
         <StackPanel Spacing="4">
             <TextBlock>昵称</TextBlock>
             <TextBox x:Name="TextBox_NickName"/>
@@ -31,5 +34,6 @@
             Padding="8"
             x:Name="Button_Signup"
             Click="Signup_Click">注册</Button>
+        <HyperlinkButton Click="BackToLoginClick" HorizontalAlignment="Center">返回登录</HyperlinkButton>
     </StackPanel>
 </Page>
