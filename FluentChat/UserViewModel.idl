@@ -1,7 +1,7 @@
 namespace FluentChat
 {
     [default_interface]
-    runtimeclass UserViewModel : Windows.UI.Xaml.Data.INotifyPropertyChanged
+    runtimeclass UserViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         UserViewModel();
         String NickName;

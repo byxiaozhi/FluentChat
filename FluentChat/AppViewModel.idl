@@ -4,7 +4,7 @@ import "TransportService.idl";
 namespace FluentChat
 {
 	[default_interface]
-	runtimeclass AppViewModel : Windows.UI.Xaml.Data.INotifyPropertyChanged
+	runtimeclass AppViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
 	{
 		AppViewModel();
 		UserViewModel UserViewModel { get; };

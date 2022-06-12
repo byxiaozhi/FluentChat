@@ -6,8 +6,8 @@
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
-using namespace winrt::Microsoft::UI::Xaml::Controls;
-using namespace winrt::Windows::UI::Xaml::Interop;
+using namespace Microsoft::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::FluentChat::implementation
 {

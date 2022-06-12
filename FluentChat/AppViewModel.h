@@ -9,19 +9,19 @@ namespace winrt::FluentChat::implementation
 {
 	struct AppViewModel : AppViewModelT<AppViewModel>
 	{
-		AppViewModel();
+		AppViewModel() = default;
 
 		FluentChat::UserViewModel UserViewModel();
 
 		FluentChat::TransportService TransportService();
 
-		event_token PropertyChanged(Windows::UI::Xaml::Data::PropertyChangedEventHandler const& value);
+		event_token PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& value);
 		void PropertyChanged(event_token const& token);
 
 	private:
-		winrt::FluentChat::UserViewModel m_userViewModel{ nullptr };
-		winrt::FluentChat::TransportService m_transportService{ nullptr };
-		event<Windows::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
+		winrt::FluentChat::UserViewModel m_userViewModel;
+		winrt::FluentChat::TransportService m_transportService;
+		event<Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
 	};
 }
 

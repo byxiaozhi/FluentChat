@@ -18,7 +18,7 @@ namespace winrt::FluentChat::implementation
 		if (m_nickName != value)
 		{
 			m_nickName = value;
-			m_propertyChanged(*this, Windows::UI::Xaml::Data::PropertyChangedEventArgs{ L"NickName" });
+			m_propertyChanged(*this, Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"NickName" });
 		}
 	}
 
@@ -32,7 +32,7 @@ namespace winrt::FluentChat::implementation
 		if (m_email != value)
 		{
 			m_email = value;
-			m_propertyChanged(*this, Windows::UI::Xaml::Data::PropertyChangedEventArgs{ L"Email" });
+			m_propertyChanged(*this, Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"Email" });
 		}
 	}
 
@@ -46,11 +46,11 @@ namespace winrt::FluentChat::implementation
 		if (m_password != value)
 		{
 			m_password = value;
-			m_propertyChanged(*this, Windows::UI::Xaml::Data::PropertyChangedEventArgs{ L"Password" });
+			m_propertyChanged(*this, Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"Password" });
 		}
 	}
 
-	event_token UserViewModel::PropertyChanged(Windows::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
+	event_token UserViewModel::PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
 	{
 		return m_propertyChanged.add(handler);
 	}

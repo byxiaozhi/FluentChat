@@ -14,7 +14,6 @@ using namespace FluentChat::implementation;
 
 App::App()
 {
-    m_appViewModel = make<winrt::FluentChat::implementation::AppViewModel>();
     InitializeComponent();
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION

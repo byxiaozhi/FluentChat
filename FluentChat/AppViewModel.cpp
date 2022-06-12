@@ -10,11 +10,6 @@ using namespace winrt;
 
 namespace winrt::FluentChat::implementation
 {
-	AppViewModel::AppViewModel() {
-		m_userViewModel = make<winrt::FluentChat::implementation::UserViewModel>();
-		m_transportService = make<winrt::FluentChat::implementation::TransportService>();
-	}
-
 	winrt::FluentChat::UserViewModel AppViewModel::UserViewModel()
 	{
 		return m_userViewModel;
@@ -25,7 +20,7 @@ namespace winrt::FluentChat::implementation
 		return m_transportService;
 	}
 
-	event_token AppViewModel::PropertyChanged(Windows::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
+	event_token AppViewModel::PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
 	{
 		return m_propertyChanged.add(handler);
 	}

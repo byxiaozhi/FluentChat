@@ -13,6 +13,6 @@ namespace winrt::FluentChat::implementation
 		FluentChat::AppViewModel AppViewModel();
 
 	private:
-		FluentChat::AppViewModel m_appViewModel{ nullptr };
+		FluentChat::AppViewModel m_appViewModel;
 	};
 }
