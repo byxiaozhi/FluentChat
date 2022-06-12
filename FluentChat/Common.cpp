@@ -22,5 +22,7 @@ namespace winrt::FluentChat::Utilities {
 		width *= scale;
 		height *= scale;
 		SetWindowPos(hWnd, 0, (screenWidth - width) / 2, (screenHeight - height) / 2, width, height, 0);
+		auto icon = LoadImage(0, L"icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+		SendMessage(hWnd, WM_SETICON, 0, (LPARAM)icon);
 	}
 }
