@@ -37,6 +37,9 @@
     <Page Include="SettingsPage.xaml">
       <Filter>Pages\MainPages</Filter>
     </Page>
+    <Page Include="SettingItem.xaml">
+      <Filter>Controls</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

@@ -6,8 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Margin="32">
+            <local:SettingItem>
+                <local:SettingItem.Icon>
+                    <FontIcon Glyph="&#xe748;"/>
+                </local:SettingItem.Icon>
+                <local:SettingItem.Title>注销登录</local:SettingItem.Title>
+                <local:SettingItem.Operate>
+                    <Button Click="Logout_Click">注销</Button>
+                </local:SettingItem.Operate>
+            </local:SettingItem>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

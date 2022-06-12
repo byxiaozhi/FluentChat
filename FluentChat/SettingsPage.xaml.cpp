@@ -1,14 +1,13 @@
 ﻿#include "pch.h"
 #include "SettingsPage.xaml.h"
+#include "App.xaml.h"
 #if __has_include("SettingsPage.g.cpp")
 #include "SettingsPage.g.cpp"
 #endif
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using namespace winrt::Windows::Foundation;
 
 namespace winrt::FluentChat::implementation
 {
@@ -17,18 +16,14 @@ namespace winrt::FluentChat::implementation
         InitializeComponent();
     }
 
-    int32_t SettingsPage::MyProperty()
+    FluentChat::AppViewModel SettingsPage::AppViewModel()
     {
-        throw hresult_not_implemented();
+        return Application::Current().try_as<App>()->AppViewModel();
     }
 
-    void SettingsPage::MyProperty(int32_t /* value */)
+    void SettingsPage::Logout_Click(IInspectable const& sender, RoutedEventArgs const& e)
     {
-        throw hresult_not_implemented();
-    }
-
-    void SettingsPage::myButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        myButton().Content(box_value(L"Clicked"));
+        AppViewModel().UserViewModel().IsLogin(false);
     }
 }
+

@@ -124,6 +124,10 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SettingItem.xaml.h">
+      <DependentUpon>SettingItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="StartWindow.xaml.h">
       <DependentUpon>StartWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -179,6 +183,9 @@
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SettingItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="StartWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -221,6 +228,10 @@
     </ClCompile>
     <ClCompile Include="LoginPage.xaml.cpp">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SettingItem.xaml.cpp">
+      <DependentUpon>SettingItem.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StartWindow.xaml.cpp">
@@ -289,6 +300,10 @@
     </Midl>
     <Midl Include="LoginPage.idl">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SettingItem.idl">
+      <DependentUpon>SettingItem.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="StartWindow.idl">

@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "pch.h"
 #include "MainWindow.g.h"
 
 namespace winrt::FluentChat::implementation
@@ -7,11 +7,8 @@ namespace winrt::FluentChat::implementation
     struct MainWindow : MainWindowT<MainWindow>
     {
         MainWindow();
-
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
-
-        void myButton_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        FluentChat::AppViewModel AppViewModel();
+        void UserViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e);
     };
 }
 

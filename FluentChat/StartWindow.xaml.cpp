@@ -1,9 +1,9 @@
 ﻿#include "pch.h"
 #include "StartWindow.xaml.h"
+#include "MainWindow.xaml.h"
 #include <microsoft.ui.xaml.window.h>
 #include "Common.h"
 #include "App.xaml.h"
-#include "MainWindow.xaml.h"
 #if __has_include("StartWindow.g.cpp")
 #include "StartWindow.g.cpp"
 #endif

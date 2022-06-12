@@ -1,0 +1,12 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass SettingItem : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        SettingItem();
+        Microsoft.UI.Xaml.Controls.IconElement Icon;
+        Object Title;
+        Object Description;
+        Object Operate;
+    }
+}
