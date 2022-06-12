@@ -63,6 +63,9 @@
     <ClInclude Include="Common.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="CompletionSource.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

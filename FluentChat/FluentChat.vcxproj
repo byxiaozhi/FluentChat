@@ -111,6 +111,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CompletionSource.h" />
     <ClInclude Include="FriendPage.xaml.h">
       <DependentUpon>FriendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
