@@ -29,6 +29,7 @@
             HorizontalAlignment="Stretch" 
             Margin="0,8,0,0" 
             Padding="8"
+            x:Name="Button_Signup"
             Click="Signup_Click">注册</Button>
     </StackPanel>
 </Page>

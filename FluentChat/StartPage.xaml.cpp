@@ -31,6 +31,11 @@ namespace winrt::FluentChat::implementation
 			typeName = xaml_typename<LoginPage>();
 		if (pageName == L"SignupPage")
 			typeName = xaml_typename<SignupPage>();
-		contentFrame().Navigate(typeName, nullptr, args.RecommendedNavigationTransitionInfo());
+		contentFrame().Navigate(typeName, *this, args.RecommendedNavigationTransitionInfo());
+	}
+
+	::NavigationView StartPage::NavigationView()
+	{
+		return navView();
 	}
 }

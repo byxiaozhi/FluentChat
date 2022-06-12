@@ -2,13 +2,16 @@
 
 #include "StartPage.g.h"
 
+using namespace winrt::Microsoft::UI::Xaml::Controls;
+
 namespace winrt::FluentChat::implementation
 {
     struct StartPage : StartPageT<StartPage>
     {
         StartPage();
         FluentChat::AppViewModel AppViewModel();
-        void navView_SelectionChanged(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender, winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
+        void navView_SelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args);
+        ::NavigationView NavigationView();
     };
 }
 
