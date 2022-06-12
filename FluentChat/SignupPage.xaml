@@ -7,22 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="8" Padding="32,16,32,32">
-        <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center">
-            注册
-        </TextBlock>
+    <StackPanel Spacing="8" Padding="32">
         <StackPanel Spacing="4">
             <TextBlock>昵称</TextBlock>
-            <TextBox/>
+            <TextBox x:Name="TextBox_NickName"/>
         </StackPanel>
         <StackPanel Spacing="4">
             <TextBlock>邮箱</TextBlock>
-            <TextBox/>
+            <TextBox x:Name="TextBox_Email"/>
         </StackPanel>
         <StackPanel Spacing="4">
             <TextBlock>密码</TextBlock>
-            <PasswordBox/>
+            <PasswordBox x:Name="PasswordBox_Password"/>
         </StackPanel>
-        <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Stretch" Margin="0,8,0,0" Padding="8">注册</Button>
+        <StackPanel Spacing="4">
+            <TextBlock>确认密码</TextBlock>
+            <PasswordBox x:Name="PasswordBox_ConfirmPassword"/>
+        </StackPanel>
+        <Button 
+            Style="{ThemeResource AccentButtonStyle}" 
+            HorizontalAlignment="Stretch" 
+            Margin="0,8,0,0" 
+            Padding="8"
+            Click="Signup_Click">注册</Button>
     </StackPanel>
 </Page>

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <pch.h>
 #include <winrt/Windows.Networking.Sockets.h>
-#include <winrt/Windows.Data.Json.h>
 #include "CompletionSource.h"
 #include "TransportService.g.h"
 #include "AppViewModel.g.h"
@@ -17,7 +16,7 @@ namespace winrt::FluentChat::implementation
 
 		FluentChat::AppViewModel AppViewModel();
 
-		Windows::Foundation::IAsyncAction TryConnect();
+		Windows::Foundation::IAsyncOperation<bool> TryConnect();
 
 		Windows::Foundation::IAsyncAction PostMessage(hstring msg);
 

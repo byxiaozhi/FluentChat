@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "App.xaml.h"
 #include "StartPage.xaml.h"
 #if __has_include("StartPage.g.cpp")
 #include "StartPage.g.cpp"
@@ -16,6 +17,11 @@ namespace winrt::FluentChat::implementation
         InitializeComponent();
 		navView().SelectedItem(navView().MenuItems().GetAt(0));
     }
+
+	FluentChat::AppViewModel StartPage::AppViewModel()
+	{
+		return Application::Current().try_as<App>()->AppViewModel();
+	}
 
 	void winrt::FluentChat::implementation::StartPage::navView_SelectionChanged(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender, winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
 	{

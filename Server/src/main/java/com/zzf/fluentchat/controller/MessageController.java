@@ -6,7 +6,7 @@ import java.util.Map;
 
 @Controller
 public class MessageController {
-    public Map<String, Object> route(Map<String, Object> args, Map<String, Object> session) {
+    public Map<String, Object> route(String action, Map<String, Object> args, Map<String, Object> session) {
         return Map.of("test", "test");
     }
 }

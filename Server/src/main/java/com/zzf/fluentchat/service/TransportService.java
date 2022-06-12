@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,35 +49,38 @@ public class TransportService {
     }
 
     public void onMessage(Socket socket, String msg) {
+        System.out.println(msg);
         var args = JSON.parseObject(msg, RemoteInvoke.class);
         try {
-            resolve(socket, args.getSessionId(), route(socket, args));
+            resolve(socket, args.getId(), route(socket, args));
         } catch (Exception ex) {
-            reject(socket, args.getSessionId(), Map.of("msg", ex.getMessage()));
+            ex.printStackTrace();
+            reject(socket, args.getId(), Map.of("msg", ex.getMessage()));
         }
     }
 
     private Map<String, Object> route(Socket socket, RemoteInvoke args) throws Exception {
+        var action = args.getAction();
         return switch (args.getController().toLowerCase()) {
-            case "main" -> mainController.route(args.getArgs(), sessions.get(socket));
-            case "user" -> userController.route(args.getArgs(), sessions.get(socket));
-            case "message" -> messageController.route(args.getArgs(), sessions.get(socket));
+            case "main" -> mainController.route(action, args.getArgs(), sessions.get(socket));
+            case "user" -> userController.route(action, args.getArgs(), sessions.get(socket));
+            case "message" -> messageController.route(action, args.getArgs(), sessions.get(socket));
             default -> throw new Exception("controller does not exist");
         };
     }
 
-    private void resolve(Socket socket, int sessionId, Map<String, Object> results) {
-        respond(socket, sessionId, 0, results);
+    private void resolve(Socket socket, int id, Map<String, Object> results) {
+        respond(socket, id, 0, results);
     }
 
-    private void reject(Socket socket, int sessionId, Map<String, Object> results) {
-        respond(socket, sessionId, 1, results);
+    private void reject(Socket socket, int id, Map<String, Object> results) {
+        respond(socket, id, 1, results);
     }
 
-    private void respond(Socket socket, int sessionId, int code, Map<String, Object> results) {
+    private void respond(Socket socket, int id, int code, Map<String, Object> results) {
         try {
             postMessage(socket, JSON.toJSONString(new InvokeResult() {{
-                setSessionId(sessionId);
+                setId(id);
                 setCode(code);
                 setResults(results);
             }}));
@@ -85,9 +89,9 @@ public class TransportService {
         }
     }
 
-    public void Dispatch(Socket socket, String name, Map<String, Object> args) {
+    public void dispatch(Socket socket, String name, Map<String, Object> args) {
         try {
-            postMessage(socket, JSON.toJSONString(new DispatchArgs(){{
+            postMessage(socket, JSON.toJSONString(new DispatchArgs() {{
                 setName(name);
                 setArgs(args);
             }}));
@@ -97,8 +101,10 @@ public class TransportService {
     }
 
     private void postMessage(Socket socket, String msg) throws IOException {
+        System.out.println(msg);
         var out = socket.getOutputStream();
-        out.write(ByteBuffer.allocate(4).putInt(msg.length()).array());
-        out.write(msg.getBytes());
+        var bytes = msg.getBytes(StandardCharsets.UTF_8);
+        out.write(ByteBuffer.allocate(4).putInt(bytes.length).array());
+        out.write(bytes);
     }
 }

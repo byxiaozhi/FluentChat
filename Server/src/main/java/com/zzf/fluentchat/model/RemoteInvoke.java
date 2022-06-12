@@ -8,7 +8,7 @@ public class RemoteInvoke {
 
     private String action;
 
-    private int sessionId;
+    private int id;
 
     private Map<String, Object> args;
 
@@ -28,12 +28,12 @@ public class RemoteInvoke {
         this.action = action;
     }
 
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return id;
     }
 
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Map<String, Object> getArgs() {

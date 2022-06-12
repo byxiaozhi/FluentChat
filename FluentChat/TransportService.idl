@@ -6,7 +6,12 @@ namespace FluentChat
     runtimeclass TransportService 
     {
         TransportService();
-    Windows.Foundation.IAsyncAction TryConnect();
-    Windows.Foundation.IAsyncAction PostMessage(String msg);
+        Windows.Foundation.IAsyncOperation<Boolean> TryConnect();
+        Windows.Foundation.IAsyncAction PostMessage(String msg);
+        Windows.Foundation.IAsyncOperation<Windows.Data.Json.JsonObject> InvokeAsync(String controller, String action, Windows.Data.Json.JsonObject args);
+        event Windows.Foundation.EventHandler<Windows.Data.Json.JsonObject> OnDispatch;
+        event Windows.Foundation.EventHandler<Boolean> OnConnect;
+        event Windows.Foundation.EventHandler<Boolean> OnDisconnect;
+        event Windows.Foundation.EventHandler<Boolean> OnConnectError;
     }
 }

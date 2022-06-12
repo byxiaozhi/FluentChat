@@ -4,18 +4,18 @@ import java.util.Map;
 
 public class InvokeResult {
 
-    private int sessionId;
+    private int id;
 
     private int code;
 
     private Map<String, Object> results;
 
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return id;
     }
 
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCode() {

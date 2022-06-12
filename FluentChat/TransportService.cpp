@@ -2,6 +2,8 @@
 #include "App.xaml.h"
 #include "TransportService.h"
 #include "CompletionSource.h"
+#include <winrt/Windows.Security.Cryptography.h>
+#include <CorError.h>
 #include <winrt/Windows.Storage.Streams.h>
 #if __has_include("TransportService.g.cpp")
 #include "TransportService.g.cpp"
@@ -13,6 +15,7 @@ using namespace Windows::Foundation;
 using namespace Windows::Storage::Streams;
 using namespace Windows::Networking;
 using namespace Windows::Data::Json;
+using namespace Windows::Security::Cryptography;
 
 namespace winrt::FluentChat::implementation
 {
@@ -21,7 +24,7 @@ namespace winrt::FluentChat::implementation
 		return Application::Current().try_as<App>()->AppViewModel();
 	}
 
-	IAsyncAction TransportService::TryConnect()
+	IAsyncOperation<bool> TransportService::TryConnect()
 	{
 		try
 		{
@@ -30,28 +33,31 @@ namespace winrt::FluentChat::implementation
 			co_await m_streamSocket.ConnectAsync(HostName{ L"localhost" }, L"8000");
 			MessageLoop();
 			OnConnect();
+			co_return true;
 		}
 		catch (winrt::hresult_error const& ex)
 		{
 			EnsureClose(m_streamSocket);
 			OnConnectError(ex);
+			co_return false;
 		}
 	}
 
 	Windows::Foundation::IAsyncAction TransportService::PostMessage(hstring msg)
 	{
-		auto streamSocket = m_streamSocket;
+		auto& streamSocket = m_streamSocket;
 		try
 		{
 			DataWriter dataWriter{ streamSocket.OutputStream() };
+			IBuffer buffer{ CryptographicBuffer::ConvertStringToBinary(msg, BinaryStringEncoding::Utf8) };
 			dataWriter.WriteInt32(854749800);
-			dataWriter.WriteInt32(msg.size());
-			dataWriter.WriteString(msg);
+			dataWriter.WriteInt32(buffer.Length());
+			dataWriter.WriteBuffer(buffer);
 			co_await dataWriter.StoreAsync();
 			dataWriter.DetachStream();
 		}
 		catch (winrt::hresult_error const& ex)
-		{				
+		{
 			EnsureClose(streamSocket);
 		}
 	}
@@ -59,16 +65,17 @@ namespace winrt::FluentChat::implementation
 	Windows::Foundation::IAsyncOperation<JsonObject> TransportService::InvokeAsync(hstring controller, hstring action, JsonObject args)
 	{
 		JsonObject jsonMsg;
-		auto sessionId = m_autoIncrementId++;
+		auto id = m_autoIncrementId++;
 		jsonMsg.Insert(L"controller", JsonValue::CreateStringValue(controller));
 		jsonMsg.Insert(L"action", JsonValue::CreateStringValue(action));
-		jsonMsg.Insert(L"sessionId", JsonValue::CreateNumberValue(sessionId));
+		jsonMsg.Insert(L"id", JsonValue::CreateNumberValue(id));
 		jsonMsg.Insert(L"args", args);
 		auto completionSource = std::make_shared<Utilities::CompletionSource<JsonObject>>();
-		m_sessionMap.insert(std::pair<uint32_t, std::shared_ptr<Utilities::CompletionSource<JsonObject>>>(sessionId, completionSource));
+		m_sessionMap.insert(std::pair<uint32_t, std::shared_ptr<Utilities::CompletionSource<JsonObject>>>(id, completionSource));
 		co_await PostMessage(jsonMsg.ToString());
-		auto resp = co_await *completionSource;
-		winrt::check_bool(resp.GetNamedNumber(L"code") == 0);
+		auto& resp = co_await *completionSource;
+		if (resp.GetNamedNumber(L"code") != 0)
+			throw_hresult(hresult(COR_E_EXCEPTION));
 		co_return resp.GetNamedObject(L"results");
 	}
 
@@ -76,6 +83,7 @@ namespace winrt::FluentChat::implementation
 	{
 		auto streamSocket = m_streamSocket;
 		DataReader dataReader{ streamSocket.InputStream() };
+		dataReader.UnicodeEncoding(UnicodeEncoding::Utf8);
 		try
 		{
 			while (true)
@@ -109,12 +117,12 @@ namespace winrt::FluentChat::implementation
 		auto json = JsonObject::Parse(msg);
 		auto type = json.GetNamedNumber(L"type");
 		if (type == 0) {
-			auto sessionId = json.GetNamedNumber(L"sessionId");
-			auto completionSource = m_sessionMap.find(sessionId);
+			auto id = json.GetNamedNumber(L"id");
+			auto completionSource = m_sessionMap.find(id);
 			if (completionSource != m_sessionMap.end())
 			{
 				completionSource->second->Set(json);
-				m_sessionMap.erase(sessionId);
+				m_sessionMap.erase(id);
 			}
 		}
 		else {
@@ -125,11 +133,17 @@ namespace winrt::FluentChat::implementation
 	void TransportService::OnDisconnect()
 	{
 		m_onConnect(*this, true);
+		for (auto& session : m_sessionMap) {
+			JsonObject rejectObj;
+			rejectObj.Insert(L"code", JsonValue::CreateNumberValue(1));
+			session.second->Set(rejectObj);
+		}
+		m_sessionMap.clear();
 	}
 
 	void TransportService::EnsureClose(Windows::Networking::Sockets::StreamSocket streamSocket)
 	{
-		try { if(streamSocket!=nullptr) streamSocket.Close(); }
+		try { if (streamSocket != nullptr) streamSocket.Close(); }
 		catch (winrt::hresult_error const& ex) {}
 	}
 	winrt::event_token TransportService::OnDispatch(Windows::Foundation::EventHandler<JsonObject> const& handler)
