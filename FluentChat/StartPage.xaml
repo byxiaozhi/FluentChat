@@ -7,12 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <NavigationView 
-        Margin="0,-50,0,0"
         x:Name="navView" 
         SelectionChanged="navView_SelectionChanged"
         PaneDisplayMode="Top" 
         IsSettingsVisible="False" 
         IsBackButtonVisible="Collapsed">
+        <NavigationView.Resources>
+            <x:Double x:Key="NavigationViewTopPaneHeight">0</x:Double>
+            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
+            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent"/>
+        </NavigationView.Resources>
         <NavigationView.MenuItems>
             <NavigationViewItem Content="登录" Tag="LoginPage" />
             <NavigationViewItem Content="注册" Tag="SignupPage" />
