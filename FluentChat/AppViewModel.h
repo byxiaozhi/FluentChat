@@ -9,7 +9,7 @@ namespace winrt::FluentChat::implementation
 {
 	struct AppViewModel : AppViewModelT<AppViewModel>
 	{
-		AppViewModel() = default;
+		AppViewModel();
 
 		FluentChat::UserViewModel UserViewModel();
 
@@ -19,6 +19,7 @@ namespace winrt::FluentChat::implementation
 		void PropertyChanged(event_token const& token);
 
 	private:
+		void OnDisconnect(winrt::Windows::Foundation::IInspectable const& sender, bool const& args);
 		void RaisePropertyChanged(hstring propertyName);
 		winrt::FluentChat::UserViewModel m_userViewModel;
 		winrt::FluentChat::TransportService m_transportService;

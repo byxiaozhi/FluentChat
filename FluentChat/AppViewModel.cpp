@@ -10,6 +10,12 @@ using namespace winrt;
 
 namespace winrt::FluentChat::implementation
 {
+
+	AppViewModel::AppViewModel() {
+		TransportService().OnDisconnect({ this,&AppViewModel::OnDisconnect });
+	}
+
+
 	winrt::FluentChat::UserViewModel AppViewModel::UserViewModel()
 	{
 		return m_userViewModel;
@@ -18,6 +24,13 @@ namespace winrt::FluentChat::implementation
 	FluentChat::TransportService AppViewModel::TransportService()
 	{
 		return m_transportService;
+	}
+
+	void AppViewModel::OnDisconnect(winrt::Windows::Foundation::IInspectable const& sender, bool const& args)
+	{
+		if (UserViewModel().IsLogin()) {
+			UserViewModel().IsLogin(false);
+		}
 	}
 
 	void AppViewModel::RaisePropertyChanged(hstring propertyName)

@@ -109,7 +109,7 @@ namespace winrt::FluentChat::implementation
 
 	void TransportService::OnConnectError(winrt::hresult_error const& ex)
 	{
-		m_onDisconnect(*this, true);
+		m_onConnectError(*this, true);
 	}
 
 	void TransportService::OnMessage(hstring msg)
@@ -139,6 +139,7 @@ namespace winrt::FluentChat::implementation
 			session.second->Set(rejectObj);
 		}
 		m_sessionMap.clear();
+		m_onDisconnect(*this, true);
 	}
 
 	void TransportService::EnsureClose(Windows::Networking::Sockets::StreamSocket streamSocket)
