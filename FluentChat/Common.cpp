@@ -25,4 +25,11 @@ namespace winrt::FluentChat::Utilities {
 		auto icon = LoadImage(0, L"icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
 		SendMessage(hWnd, WM_SETICON, 0, (LPARAM)icon);
 	}
+
+	void DisableResize(winrt::com_ptr<::IWindowNative> windowNative) {
+		auto hWnd = GetWindowHandle(windowNative);
+		auto style = GetWindowLong(hWnd, GWL_STYLE);
+		style &= ~(WS_THICKFRAME | WS_MAXIMIZEBOX);
+		SetWindowLong(hWnd, GWL_STYLE, style);
+	}
 }

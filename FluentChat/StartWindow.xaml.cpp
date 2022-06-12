@@ -19,6 +19,7 @@ namespace winrt::FluentChat::implementation
 		InitializeComponent();
 		Title(L"Fluent Chat");
 		Utilities::CenterWindow(this->try_as<::IWindowNative>(), 360, 480);
+		Utilities::DisableResize(this->try_as<::IWindowNative>());
 		auto uvpc_token = AppViewModel().UserViewModel().PropertyChanged({ this, &StartWindow::UserViewModel_PropertyChanged });
 		Closed([&](IInspectable s, WindowEventArgs e) {AppViewModel().UserViewModel().PropertyChanged(uvpc_token); });
 	}
