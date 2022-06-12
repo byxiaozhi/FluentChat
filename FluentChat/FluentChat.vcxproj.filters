@@ -40,6 +40,9 @@
     <Page Include="SettingItem.xaml">
       <Filter>Controls</Filter>
     </Page>
+    <Page Include="EventPage.xaml">
+      <Filter>Pages\MainPages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

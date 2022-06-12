@@ -112,6 +112,10 @@
     </ClInclude>
     <ClInclude Include="Common.h" />
     <ClInclude Include="CompletionSource.h" />
+    <ClInclude Include="EventPage.xaml.h">
+      <DependentUpon>EventPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FriendPage.xaml.h">
       <DependentUpon>FriendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -174,6 +178,9 @@
     <Page Include="ChatPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EventPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FriendPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -218,6 +225,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="EventPage.xaml.cpp">
+      <DependentUpon>EventPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="FriendPage.xaml.cpp">
       <DependentUpon>FriendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -288,6 +299,10 @@
     </Midl>
     <Midl Include="ChatPage.idl">
       <DependentUpon>ChatPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="EventPage.idl">
+      <DependentUpon>EventPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="FriendPage.idl">

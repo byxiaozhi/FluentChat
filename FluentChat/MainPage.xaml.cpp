@@ -26,17 +26,23 @@ namespace winrt::FluentChat::implementation
 			{ L"RecentPage", xaml_typename<RecentPage>() },
 			{ L"FriendPage", xaml_typename<FriendPage>() },
 			{ L"GroupPage", xaml_typename<GroupPage>() },
+			{ L"EventPage", xaml_typename<EventPage>() },
 		}) };
 
 		if (pageName.has_value() && pageMap.HasKey(pageName.value())) {
-			leftColumn().Width(GridLength{ 300, GridUnitType::Pixel });
-			rightColumn().Width(GridLength{ 1, GridUnitType::Star });
-			sideFrame().Navigate(pageMap.Lookup(pageName.value()), nullptr, args.RecommendedNavigationTransitionInfo());
+			sideFrame().Navigate(pageMap.Lookup(pageName.value()), *this, args.RecommendedNavigationTransitionInfo());
 		}
 		else {
+			sideFrame().Navigate(xaml_typename<SettingsPage>(), *this, args.RecommendedNavigationTransitionInfo());
+		}
+
+		if (pageName.has_value() && (!pageMap.HasKey(pageName.value()) || pageName == L"EventPage")) {
 			leftColumn().Width(GridLength{ 1, GridUnitType::Star });
 			rightColumn().Width(GridLength{ 0, GridUnitType::Pixel });
-			sideFrame().Navigate(xaml_typename<SettingsPage>(), nullptr, args.RecommendedNavigationTransitionInfo());
+		}
+		else {
+			leftColumn().Width(GridLength{ 300, GridUnitType::Pixel });
+			rightColumn().Width(GridLength{ 1, GridUnitType::Star });
 		}
 	}
 }

@@ -7,7 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock>最近</TextBlock>
+    <StackPanel Padding="0,8,8,8">
+        <Grid ColumnSpacing="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox PlaceholderText="搜索最近"/>
+            <Button Grid.Column="1" VerticalAlignment="Stretch">
+                <FontIcon Glyph="&#xf8aa;" FontSize="12"/>
+            </Button>
+        </Grid>
     </StackPanel>
 </Page>
