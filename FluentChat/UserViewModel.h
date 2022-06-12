@@ -23,6 +23,7 @@ namespace winrt::FluentChat::implementation
         void PropertyChanged(event_token const& token);
 
     private:
+        void RaisePropertyChanged(hstring propertyName);
         hstring m_nickName;
         hstring m_email;
         hstring m_password;

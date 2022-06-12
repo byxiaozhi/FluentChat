@@ -20,6 +20,11 @@ namespace winrt::FluentChat::implementation
 		return m_transportService;
 	}
 
+	void AppViewModel::RaisePropertyChanged(hstring propertyName)
+	{
+		m_propertyChanged(*this, Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ propertyName });
+	}
+
 	event_token AppViewModel::PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& handler)
 	{
 		return m_propertyChanged.add(handler);

@@ -19,6 +19,7 @@ namespace winrt::FluentChat::implementation
 		void PropertyChanged(event_token const& token);
 
 	private:
+		void RaisePropertyChanged(hstring propertyName);
 		winrt::FluentChat::UserViewModel m_userViewModel;
 		winrt::FluentChat::TransportService m_transportService;
 		event<Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
