@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="0,8,8,8">
+    <StackPanel Padding="8">
         <Grid ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
