@@ -124,6 +124,10 @@
       <DependentUpon>AddPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CreateGroup.xaml.h">
+      <DependentUpon>CreateGroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="EmptyToBoolConverter.h">
       <DependentUpon>EmptyToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -204,6 +208,9 @@
     <Page Include="AddPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateGroup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FriendPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -258,6 +265,10 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="AddPage.xaml.cpp">
       <DependentUpon>AddPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CreateGroup.xaml.cpp">
+      <DependentUpon>CreateGroup.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EmptyToBoolConverter.cpp">
@@ -351,6 +362,10 @@
     </Midl>
     <Midl Include="AddPage.idl">
       <DependentUpon>AddPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CreateGroup.idl">
+      <DependentUpon>CreateGroup.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="EmptyToBoolConverter.idl">

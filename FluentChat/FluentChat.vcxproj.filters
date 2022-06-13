@@ -49,6 +49,9 @@
     <Page Include="AddPage.xaml">
       <Filter>Pages\MainPages</Filter>
     </Page>
+    <Page Include="CreateGroup.xaml">
+      <Filter>Controls</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

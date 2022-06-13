@@ -9,11 +9,14 @@
     <ScrollViewer>
         <Border Padding="24">
             <Pivot>
-                <PivotItem Header="好友">
+                <PivotItem Header="添加好友">
                     <local:AddFriend/>
                 </PivotItem>
-                <PivotItem Header="群">
+                <PivotItem Header="添加群">
                     <local:AddGroup/>
+                </PivotItem>
+                <PivotItem Header="创建群">
+                    <local:CreateGroup/>
                 </PivotItem>
             </Pivot>
         </Border>
