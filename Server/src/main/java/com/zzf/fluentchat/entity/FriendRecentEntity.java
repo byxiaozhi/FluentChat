@@ -3,26 +3,26 @@ package com.zzf.fluentchat.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "group_message")
-public class GroupMessageEntity {
-
+@Entity(name = "friend_recent")
+public class FriendRecentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "from_user_id", nullable = false)
-    private UserEntity from;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @OneToOne
-    @JoinColumn(name = "to_group_id", nullable = false)
-    private GroupEntity to;
-
-    @Column(nullable = false)
-    private String message = "";
+    @JoinColumn(name = "friend_id", nullable = false)
+    private FriendEntity to;
 
     @Column(nullable = false)
     private Date sendDate = new Date();
+
+    @OneToOne
+    @JoinColumn(name = "message_id", nullable = false)
+    private FriendMessageEntity message;
 
     public Integer getId() {
         return id;
@@ -32,27 +32,27 @@ public class GroupMessageEntity {
         this.id = id;
     }
 
-    public UserEntity getFrom() {
-        return from;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setFrom(UserEntity from) {
-        this.from = from;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public GroupEntity getTo() {
+    public FriendEntity getTo() {
         return to;
     }
 
-    public void setTo(GroupEntity to) {
+    public void setTo(FriendEntity to) {
         this.to = to;
     }
 
-    public String getMessage() {
+    public FriendMessageEntity getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(FriendMessageEntity message) {
         this.message = message;
     }
 

@@ -1,9 +1,8 @@
 package com.zzf.fluentchat.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
-@Entity(name = "friend")
+@Entity(name = "friend_info")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uc_friend_user", columnNames = {"user_id", "friend_id"})
 })
@@ -18,10 +17,6 @@ public class FriendEntity {
 
         State(int index) {
             this.index = index;
-        }
-
-        int getIndex() {
-            return index;
         }
     }
 
@@ -41,7 +36,7 @@ public class FriendEntity {
     private String alias = "";
 
     @Column(nullable = false)
-    private State state;
+    private int state;
 
     public Integer getId() {
         return id;
@@ -75,11 +70,15 @@ public class FriendEntity {
         this.alias = alias;
     }
 
-    public State getState() {
+    public int getState() {
         return state;
     }
 
     public void setState(State state) {
+        this.state = state.index;
+    }
+
+    public void setState(int state) {
         this.state = state;
     }
 }

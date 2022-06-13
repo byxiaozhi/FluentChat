@@ -6,7 +6,9 @@ import java.util.Map;
 
 @Controller
 public class GroupController {
+
     public Map<String, Object> route(String action, Map<String, Object> args, Map<String, Object> session) {
         return Map.of("test", "test");
     }
+
 }

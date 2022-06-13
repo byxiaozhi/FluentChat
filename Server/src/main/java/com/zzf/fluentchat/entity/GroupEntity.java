@@ -12,6 +12,9 @@ public class GroupEntity {
     private Integer id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private Date createDate = new Date();
 
     @OneToMany
@@ -51,5 +54,13 @@ public class GroupEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

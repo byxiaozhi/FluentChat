@@ -3,8 +3,8 @@ package com.zzf.fluentchat.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "user_message")
-public class UserMessageEntity {
+@Entity(name = "friend_message")
+public class FriendMessageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +15,8 @@ public class UserMessageEntity {
     private UserEntity from;
 
     @OneToOne
-    @JoinColumn(name = "to_user_id", nullable = false)
-    private UserEntity to;
+    @JoinColumn(name = "to_friend_id", nullable = false)
+    private FriendEntity to;
 
     @Column(nullable = false)
     private String message = "";
@@ -42,11 +42,11 @@ public class UserMessageEntity {
         this.from = from;
     }
 
-    public UserEntity getTo() {
+    public FriendEntity getTo() {
         return to;
     }
 
-    public void setTo(UserEntity to) {
+    public void setTo(FriendEntity to) {
         this.to = to;
     }
 

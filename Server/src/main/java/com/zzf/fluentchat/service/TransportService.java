@@ -27,25 +27,38 @@ public class TransportService {
 
     final FriendController friendController;
 
+    final NotificationService notificationService;
+
     final Map<Socket, Map<String, Object>> sessions = new HashMap<>();
 
     public TransportService(
             MainController mainController,
             UserController userController,
-            MessageController messageController, GroupController groupController, FriendController friendController) {
+            MessageController messageController,
+            GroupController groupController,
+            FriendController friendController,
+            NotificationService notificationService) {
         this.mainController = mainController;
         this.userController = userController;
         this.messageController = messageController;
         this.groupController = groupController;
         this.friendController = friendController;
+        this.notificationService = notificationService;
+        notificationService.setTransportService(this);
     }
 
     public Map<String, Object> getSession(Socket socket) {
         return sessions.get(socket);
     }
 
+    public Map<Socket, Map<String, Object>> getSessions() {
+        return  sessions;
+    }
+
     public void onConnect(Socket socket) {
-        sessions.put(socket, new HashMap<>());
+        var map = new HashMap<String,Object>();
+        map.put("socket", socket);
+        sessions.put(socket, map);
     }
 
     public void onDisconnect(Socket socket) {
@@ -65,7 +78,7 @@ public class TransportService {
 
     private Map<String, Object> route(Socket socket, RemoteInvoke args) throws Exception {
         var action = args.getAction();
-        return switch (args.getController().toLowerCase()) {
+        return switch (args.getController()) {
             case "main" -> mainController.route(action, args.getArgs(), sessions.get(socket));
             case "user" -> userController.route(action, args.getArgs(), sessions.get(socket));
             case "message" -> messageController.route(action, args.getArgs(), sessions.get(socket));
