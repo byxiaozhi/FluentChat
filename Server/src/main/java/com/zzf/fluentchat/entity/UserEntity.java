@@ -2,6 +2,7 @@ package com.zzf.fluentchat.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity(name = "user")
 public class UserEntity {
@@ -26,7 +27,11 @@ public class UserEntity {
     private Date createDate = new Date();
 
     @Column(nullable = false)
-    private Date updateDate = new Date();;
+    private Date updateDate = new Date();
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<FriendEntity> friends;
 
     public Integer getId() {
         return id;
@@ -82,5 +87,13 @@ public class UserEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Set<FriendEntity> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<FriendEntity> friends) {
+        this.friends = friends;
     }
 }
