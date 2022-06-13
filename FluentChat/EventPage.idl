@@ -4,6 +4,5 @@ namespace FluentChat
     runtimeclass EventPage : Microsoft.UI.Xaml.Controls.Page
     {
         EventPage();
-        Int32 MyProperty;
     }
 }

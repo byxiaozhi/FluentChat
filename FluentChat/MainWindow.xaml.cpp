@@ -1,20 +1,23 @@
 ﻿#include "pch.h"
 #include "MainWindow.xaml.h"
+#if __has_include("MainWindow.g.cpp")
+#include "MainWindow.g.cpp"
+#endif
 #include "StartWindow.xaml.h"
 #include <microsoft.ui.xaml.window.h>
 #include "Common.h"
 #include "App.xaml.h"
 #include "dwmapi.h"
-#if __has_include("MainWindow.g.cpp")
-#include "MainWindow.g.cpp"
-#endif
-
-#pragma comment(lib, "dwmapi.lib")
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
+#include <winrt/Windows.UI.ViewManagement.h>
+#include <wil/cppwinrt.h>
+#include <wil/cppwinrt_helpers.h>
+#pragma comment(lib, "dwmapi.lib")
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 using namespace winrt::Windows::Foundation;
+using namespace Windows::UI::ViewManagement;
 
 namespace winrt::FluentChat::implementation
 {
@@ -26,12 +29,8 @@ namespace winrt::FluentChat::implementation
 		auto [micaController, configurationSource] = Utilities::SetMicaBackdrop(*this);
 		m_micaController = micaController;
 		m_configurationSource = configurationSource;
-		SetConfigurationSourceTheme();
-		auto atc_token = this->Content().try_as<FrameworkElement>().ActualThemeChanged([&](FrameworkElement e, IInspectable i) {SetConfigurationSourceTheme(); });
-		Closed([&](IInspectable s, WindowEventArgs e) {
-			m_micaController = nullptr;
-			m_configurationSource = nullptr;
-			AppViewModel().UserViewModel().PropertyChanged(atc_token);});
+		ColorValuesChanged(m_uiSettings, nullptr);
+		m_uiSettings.ColorValuesChanged({ this, &MainWindow::ColorValuesChanged });
 	}
 
 	FluentChat::AppViewModel MainWindow::AppViewModel()
@@ -45,28 +44,20 @@ namespace winrt::FluentChat::implementation
 			m_configurationSource.IsInputActive(args.WindowActivationState() != WindowActivationState::Deactivated);
 	}
 
-	void MainWindow::SetConfigurationSourceTheme()
+	void MainWindow::Window_Closed(IInspectable const& sender, WindowEventArgs const& args)
+	{
+		m_micaController = nullptr;
+		m_configurationSource = nullptr;
+		m_uiSettings = nullptr;
+	}
+
+	IAsyncAction MainWindow::ColorValuesChanged(Windows::UI::ViewManagement::UISettings s, IInspectable e)
 	{
 		if (m_configurationSource == nullptr)
-			return;
-		int darkModeValue = 0;
-		switch (this->Content().try_as<FrameworkElement>().ActualTheme())
-		{
-		case ElementTheme::Dark:
-			m_configurationSource.Theme(Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark);
-			darkModeValue = 1;
-			break;
-		case ElementTheme::Light:
-			m_configurationSource.Theme(Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Light);
-			darkModeValue = 0;
-			break;
-		case ElementTheme::Default:
-			m_configurationSource.Theme(Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default);
-			darkModeValue = Application::Current().RequestedTheme() == ApplicationTheme::Dark ? 1 : 0;
-			break;
-		}
+			co_return;
+		co_await wil::resume_foreground(DispatcherQueue());
+		int darkModeValue = Application::Current().RequestedTheme() == ApplicationTheme::Dark ? 1 : 0;
 		auto hWnd = Utilities::GetWindowHandle(this->try_as<::IWindowNative>());
 		DwmSetWindowAttribute(hWnd, 20, (LPCVOID)&darkModeValue, sizeof(int));
 	}
 }
-

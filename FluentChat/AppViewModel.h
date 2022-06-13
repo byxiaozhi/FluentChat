@@ -12,15 +12,10 @@ namespace winrt::FluentChat::implementation
 	struct AppViewModel : AppViewModelT<AppViewModel>
 	{
 		AppViewModel();
-
 		FluentChat::UserViewModel UserViewModel();
-
 		FluentChat::TransportService TransportService();
-
 		void OpenMainWindow();
-
 		void OpenStartWindow();
-
 		event_token PropertyChanged(Microsoft::UI::Xaml::Data::PropertyChangedEventHandler const& value);
 		void PropertyChanged(event_token const& token);
 

@@ -70,13 +70,13 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Common.h">
-      <Filter>Utilities</Filter>
+      <Filter>Utilities\header</Filter>
     </ClInclude>
     <ClInclude Include="CompletionSource.h">
-      <Filter>Utilities</Filter>
+      <Filter>Utilities\header</Filter>
     </ClInclude>
     <ClInclude Include="MicaBackdrop.h">
-      <Filter>Utilities</Filter>
+      <Filter>Utilities\header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +268,9 @@
     </Filter>
     <Filter Include="Services">
       <UniqueIdentifier>{75ab743d-c542-4222-8bab-1b7a6dd6a754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\header">
+      <UniqueIdentifier>{de4d14c4-aa77-4ebe-9efc-457d6228d900}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
