@@ -1,9 +1,7 @@
 package com.zzf.fluentchat.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.zzf.fluentchat.controller.MainController;
-import com.zzf.fluentchat.controller.MessageController;
-import com.zzf.fluentchat.controller.UserController;
+import com.zzf.fluentchat.controller.*;
 import com.zzf.fluentchat.model.DispatchArgs;
 import com.zzf.fluentchat.model.InvokeResult;
 import com.zzf.fluentchat.model.RemoteInvoke;
@@ -25,15 +23,21 @@ public class TransportService {
 
     final MessageController messageController;
 
+    final GroupController groupController;
+
+    final FriendController friendController;
+
     final Map<Socket, Map<String, Object>> sessions = new HashMap<>();
 
     public TransportService(
             MainController mainController,
             UserController userController,
-            MessageController messageController) {
+            MessageController messageController, GroupController groupController, FriendController friendController) {
         this.mainController = mainController;
         this.userController = userController;
         this.messageController = messageController;
+        this.groupController = groupController;
+        this.friendController = friendController;
     }
 
     public Map<String, Object> getSession(Socket socket) {
@@ -65,6 +69,8 @@ public class TransportService {
             case "main" -> mainController.route(action, args.getArgs(), sessions.get(socket));
             case "user" -> userController.route(action, args.getArgs(), sessions.get(socket));
             case "message" -> messageController.route(action, args.getArgs(), sessions.get(socket));
+            case "group" -> groupController.route(action, args.getArgs(), sessions.get(socket));
+            case "friend" -> friendController.route(action, args.getArgs(), sessions.get(socket));
             default -> throw new Exception("controller does not exist");
         };
     }
