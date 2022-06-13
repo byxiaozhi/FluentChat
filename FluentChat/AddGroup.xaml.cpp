@@ -6,6 +6,7 @@
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
+using namespace winrt::Windows::Foundation;
 
 namespace winrt::FluentChat::implementation
 {
@@ -13,4 +14,12 @@ namespace winrt::FluentChat::implementation
     {
         InitializeComponent();
     }
+
+    void AddGroup::Search_Click(IInspectable const& sender, RoutedEventArgs const& e)
+    {
+
+    }
 }
+
+
+

@@ -7,15 +7,16 @@
 
 namespace winrt::FluentChat::implementation
 {
-    struct AddFriend : AddFriendT<AddFriend>
-    {
-        AddFriend();
-    };
+	struct AddFriend : AddFriendT<AddFriend>
+	{
+		AddFriend();
+		void Search_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+	};
 }
 
 namespace winrt::FluentChat::factory_implementation
 {
-    struct AddFriend : AddFriendT<AddFriend, implementation::AddFriend>
-    {
-    };
+	struct AddFriend : AddFriendT<AddFriend, implementation::AddFriend>
+	{
+	};
 }

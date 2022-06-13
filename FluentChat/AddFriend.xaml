@@ -14,20 +14,32 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox PlaceholderText="请输入邮箱/昵称"/>
-                <Button Grid.Column="1" MinWidth="100" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Stretch">搜索</Button>
+                <TextBox PlaceholderText="请输入邮箱/昵称" x:Name="TextBox_Search"/>
+                <Button Grid.Column="1" MinWidth="100" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Stretch" Click="Search_Click">搜索</Button>
             </Grid>
         </StackPanel>
-        <StackPanel Spacing="4">
-            <TextBlock>好友请求</TextBlock>
-            <local:SettingItem Title="XXXX" Description="111@qq.com">
-                <local:SettingItem.Operate>
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <Button Style="{ThemeResource AccentButtonStyle}">接受</Button>
-                        <Button>拒绝</Button>
-                    </StackPanel>
-                </local:SettingItem.Operate>
-            </local:SettingItem>
+        <StackPanel>
+            <StackPanel Spacing="4" Visibility="{Binding Text, ElementName=TextBox_Search, Converter={StaticResource EmptyToBoolReverseConverter}}">
+                <TextBlock>好友请求</TextBlock>
+                <local:SettingItem Title="XXXX" Description="111@qq.com">
+                    <local:SettingItem.Operate>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <Button Style="{ThemeResource AccentButtonStyle}">接受</Button>
+                            <Button>拒绝</Button>
+                        </StackPanel>
+                    </local:SettingItem.Operate>
+                </local:SettingItem>
+            </StackPanel>
+            <StackPanel Spacing="4" Visibility="{Binding Text, ElementName=TextBox_Search, Converter={StaticResource EmptyToBoolConverter}}">
+                <TextBlock>搜索结果</TextBlock>
+                <local:SettingItem Title="XXXX" Description="111@qq.com">
+                    <local:SettingItem.Operate>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <Button Style="{ThemeResource AccentButtonStyle}">添加好友</Button>
+                        </StackPanel>
+                    </local:SettingItem.Operate>
+                </local:SettingItem>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -124,6 +124,14 @@
       <DependentUpon>AddPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EmptyToBoolConverter.h">
+      <DependentUpon>EmptyToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="EqualConverter.h">
+      <DependentUpon>EqualConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FriendPage.xaml.h">
       <DependentUpon>FriendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -252,6 +260,14 @@
       <DependentUpon>AddPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="EmptyToBoolConverter.cpp">
+      <DependentUpon>EmptyToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="EqualConverter.cpp">
+      <DependentUpon>EqualConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="FriendPage.xaml.cpp">
       <DependentUpon>FriendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -336,6 +352,12 @@
     <Midl Include="AddPage.idl">
       <DependentUpon>AddPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="EmptyToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="EqualConverter.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="FriendPage.idl">
       <DependentUpon>FriendPage.xaml</DependentUpon>

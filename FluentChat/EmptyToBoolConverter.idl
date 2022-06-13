@@ -1,0 +1,9 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass EmptyToBoolConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        EmptyToBoolConverter();
+        Boolean IsReverse;
+    }
+}
