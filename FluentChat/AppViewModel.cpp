@@ -13,6 +13,7 @@ namespace winrt::FluentChat::implementation
 
 	AppViewModel::AppViewModel() {
 		TransportService().OnDisconnect({ this,&AppViewModel::OnDisconnect });
+		UserViewModel().PropertyChanged({ this, &AppViewModel::UserViewModel_PropertyChanged });
 	}
 
 
@@ -24,6 +25,34 @@ namespace winrt::FluentChat::implementation
 	FluentChat::TransportService AppViewModel::TransportService()
 	{
 		return m_transportService;
+	}
+
+	void AppViewModel::OpenMainWindow()
+	{
+		m_mainWindow = make<MainWindow>();
+		m_mainWindow.Activate();
+		if (m_startWindow != nullptr) {
+			m_startWindow.Close();
+			m_startWindow = nullptr;
+		}
+	}
+
+	void AppViewModel::OpenStartWindow()
+	{
+		m_startWindow = make<StartWindow>();
+		m_startWindow.Activate();
+		if (m_mainWindow != nullptr) {
+			m_mainWindow.Close();
+			m_mainWindow = nullptr;
+		}
+	}
+
+	void AppViewModel::UserViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
+	{
+		if (e.PropertyName() == L"IsLogin") {
+			if (UserViewModel().IsLogin()) OpenMainWindow();
+			else OpenStartWindow();
+		}
 	}
 
 	void AppViewModel::OnDisconnect(winrt::Windows::Foundation::IInspectable const& sender, bool const& args)

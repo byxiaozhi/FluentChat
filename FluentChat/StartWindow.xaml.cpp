@@ -28,25 +28,15 @@ namespace winrt::FluentChat::implementation
 		m_configurationSource = configurationSource;
 		SetConfigurationSourceTheme();
 		auto atc_token = this->Content().try_as<FrameworkElement>().ActualThemeChanged([&](FrameworkElement e, IInspectable i) {SetConfigurationSourceTheme(); });
-		auto uvpc_token = AppViewModel().UserViewModel().PropertyChanged({ this, &StartWindow::UserViewModel_PropertyChanged });
 		Closed([&](IInspectable s, WindowEventArgs e) {
 			m_micaController = nullptr;
 			m_configurationSource = nullptr;
-			AppViewModel().UserViewModel().PropertyChanged(atc_token);
-			AppViewModel().UserViewModel().PropertyChanged(uvpc_token);});
+			AppViewModel().UserViewModel().PropertyChanged(atc_token);});
 	}
 
 	FluentChat::AppViewModel StartWindow::AppViewModel()
 	{
 		return Application::Current().try_as<App>()->AppViewModel();
-	}
-
-	void StartWindow::UserViewModel_PropertyChanged(IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
-	{
-		if (e.PropertyName() == L"IsLogin" && AppViewModel().UserViewModel().IsLogin()) {
-			make<MainWindow>().Activate();
-			this->Close();
-		}
 	}
 
 	void StartWindow::Window_Activated(IInspectable const& sender, WindowActivatedEventArgs const& args)

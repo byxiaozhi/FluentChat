@@ -40,7 +40,7 @@ namespace winrt::FluentChat::implementation
 			auto str = resp.ToString();
 			if (resp.GetNamedBoolean(L"success")) {
 				co_await ContentDialog(L"注册成功", resp.GetNamedString(L"message"));
-				m_startPage->NavigationView().SelectedItem(m_startPage->NavigationView().MenuItems().GetAt(0));
+				BackToLoginClick(nullptr, nullptr);
 			}
 			else {
 				co_await ContentDialog(L"注册失败", resp.GetNamedString(L"message"));
@@ -59,7 +59,11 @@ namespace winrt::FluentChat::implementation
 
 	void SignupPage::BackToLoginClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		m_startPage->NavigationView().SelectedItem(m_startPage->NavigationView().MenuItems().GetAt(0));
+		auto startPage = m_startPage.get();
+		if (startPage != nullptr) {
+			auto navView = startPage->NavigationView();
+			navView.SelectedItem(navView.MenuItems().GetAt(0));
+		}
 	}
 
 	FluentChat::AppViewModel SignupPage::AppViewModel()

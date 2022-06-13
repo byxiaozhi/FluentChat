@@ -9,7 +9,6 @@ namespace winrt::FluentChat::implementation
     {
         MainWindow();
         FluentChat::AppViewModel AppViewModel();
-        void UserViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e);
         void Window_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args);
         void SetConfigurationSourceTheme();
 

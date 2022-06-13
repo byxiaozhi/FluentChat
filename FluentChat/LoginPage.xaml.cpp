@@ -52,7 +52,11 @@ namespace winrt::FluentChat::implementation
 
 	void LoginPage::GotoSignupClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		m_startPage->NavigationView().SelectedItem(m_startPage->NavigationView().MenuItems().GetAt(1));
+		auto startPage = m_startPage.get();
+		if (startPage != nullptr) {
+			auto navView = startPage->NavigationView();
+			navView.SelectedItem(navView.MenuItems().GetAt(1));
+		}
 	}
 
 	FluentChat::AppViewModel LoginPage::AppViewModel()

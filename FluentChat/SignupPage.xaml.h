@@ -18,7 +18,7 @@ namespace winrt::FluentChat::implementation
 
 	private:
 		IAsyncAction ContentDialog(hstring title, hstring content);
-		com_ptr<StartPage> m_startPage { nullptr };
+		weak_ref<StartPage> m_startPage { nullptr };
 	};
 }
 

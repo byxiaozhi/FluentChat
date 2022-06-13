@@ -35,5 +35,5 @@ FluentChat::AppViewModel App::AppViewModel()
 
 void App::OnLaunched(LaunchActivatedEventArgs const&)
 {
-    make<StartWindow>().Activate();
+    m_appViewModel.OpenStartWindow();
 }

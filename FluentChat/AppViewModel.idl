@@ -9,5 +9,7 @@ namespace FluentChat
 		AppViewModel();
 		UserViewModel UserViewModel { get; };
 		TransportService TransportService { get; };
+		void OpenMainWindow();
+		void OpenStartWindow();
 	}
 }
