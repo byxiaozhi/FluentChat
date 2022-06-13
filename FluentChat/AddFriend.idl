@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass AddFriend : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        AddFriend();
+    }
+}

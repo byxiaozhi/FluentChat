@@ -40,7 +40,13 @@
     <Page Include="SettingItem.xaml">
       <Filter>Controls</Filter>
     </Page>
-    <Page Include="EventPage.xaml">
+    <Page Include="AddFriend.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="AddGroup.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="AddPage.xaml">
       <Filter>Pages\MainPages</Filter>
     </Page>
   </ItemGroup>

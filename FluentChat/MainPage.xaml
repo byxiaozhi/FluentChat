@@ -24,9 +24,9 @@
                 <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="{ThemeResource CardStrokeColorDefault}"/>
             </NavigationView.Resources>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="事件" Tag="EventPage">
+                <NavigationViewItem Content="添加" Tag="AddPage">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontSize="12" Glyph="&#xed0d;"/>
+                        <FontIcon FontSize="12" Glyph="&#xe8fa;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
@@ -49,7 +49,7 @@
             </NavigationView.MenuItems>
             <Frame x:Name="sideFrame"/>
         </NavigationView>
-        <Border Width="1" Grid.Column="1" Margin="0,1,0,0" Background="{ThemeResource ButtonBorderThemeBrush}" HorizontalAlignment="Left"/>
+        <Border Width="1" Grid.Column="1" Margin="0,1,0,0" Background="{ThemeResource SurfaceStrokeColorDefault}" HorizontalAlignment="Left"/>
         <local:ChatPage Grid.Column="1"/>
     </Grid>
 </Page>

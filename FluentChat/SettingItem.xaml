@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Viewbox Width="16" Height="16">
+        <Viewbox MaxWidth="16" MaxHeight="16">
             <ContentControl Content="{x:Bind Icon}" VerticalAlignment="Center"/>
         </Viewbox>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">

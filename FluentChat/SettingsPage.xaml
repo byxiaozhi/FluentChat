@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <ScrollViewer>
-        <StackPanel Margin="32">
+        <StackPanel Margin="32" Spacing="8">
+            <TextBlock FontSize="28">设置</TextBlock>
             <local:SettingItem>
                 <local:SettingItem.Icon>
                     <FontIcon Glyph="&#xe748;"/>
