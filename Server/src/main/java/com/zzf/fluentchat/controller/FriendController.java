@@ -9,6 +9,7 @@ import com.zzf.fluentchat.service.NotificationService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+
 import java.util.Map;
 
 @Controller
@@ -56,7 +57,11 @@ public class FriendController {
             var str1 = a.getAlias().isEmpty() ? a.getUser().getNickname() : a.getAlias();
             var str2 = b.getAlias().isEmpty() ? b.getUser().getNickname() : b.getAlias();
             return str1.compareTo(str2);
-        }).map(entityConverter::convert);
+        }).map(e -> {
+            var map = entityConverter.convert(e);
+            map.put("displayName", e.getAlias().isEmpty() ? e.getUser().getNickname() : e.getAlias());
+            return map;
+        }).toList();
         return Map.of("friends", friends, "success", true, "message", "操作成功");
     }
 
@@ -65,14 +70,14 @@ public class FriendController {
         var value = args.get("value").toString();
         var page = PageRequest.of(0, 100);
         var results = userRepository.searchByEmailOrNickname(value, page).get()
-                .filter(e->!e.getId().equals(user.getId())).map(e->{
-            var map = entityConverter.convert(e);
-            var friendDirect = friendRepository.find(user, e);
-            var friendInverse = friendRepository.find(e, user);
-            map.put("stateDirect",friendDirect == null ? -1 : friendDirect.getState());
-            map.put("friendInverse",friendInverse == null ? -1 : friendInverse.getState());
-            return map;
-        }).toList();
+                .filter(e -> !e.getId().equals(user.getId())).map(e -> {
+                    var map = entityConverter.convert(e);
+                    var friendDirect = friendRepository.find(user, e);
+                    var friendInverse = friendRepository.find(e, user);
+                    map.put("stateDirect", friendDirect == null ? -1 : friendDirect.getState());
+                    map.put("friendInverse", friendInverse == null ? -1 : friendInverse.getState());
+                    return map;
+                }).toList();
         return Map.of("results", results, "success", true, "message", "操作成功");
     }
 
@@ -81,7 +86,7 @@ public class FriendController {
         if (friend_nullable.isEmpty()) return Map.of("success", false, "message", "用户ID不存在");
         var user = (UserEntity) session.get("user");
         var friend = friend_nullable.get();
-        if(user.getId().equals(friend.getId()))
+        if (user.getId().equals(friend.getId()))
             return Map.of("success", false, "message", "不能添加自己");
         var friendDirect = new FriendEntity();
         friendDirect.setState(FriendEntity.State.normal);

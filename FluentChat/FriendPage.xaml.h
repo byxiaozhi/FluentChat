@@ -7,6 +7,9 @@ namespace winrt::FluentChat::implementation
     struct FriendPage : FriendPageT<FriendPage>
     {
         FriendPage();
+        FluentChat::AppViewModel AppViewModel();
+        FluentChat::TransportService TransportService();
+        winrt::Windows::Foundation::IAsyncAction ListView_Friends_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

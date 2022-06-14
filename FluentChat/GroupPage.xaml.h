@@ -7,6 +7,8 @@ namespace winrt::FluentChat::implementation
     struct GroupPage : GroupPageT<GroupPage>
     {
         GroupPage();
+        FluentChat::AppViewModel AppViewModel();
+        FluentChat::TransportService TransportService();
     };
 }
 

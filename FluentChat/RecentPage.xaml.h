@@ -7,6 +7,8 @@ namespace winrt::FluentChat::implementation
     struct RecentPage : RecentPageT<RecentPage>
     {
         RecentPage();
+        FluentChat::AppViewModel AppViewModel();
+        FluentChat::TransportService TransportService();
     };
 }
 
