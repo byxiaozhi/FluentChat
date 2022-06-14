@@ -8,11 +8,20 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Height="160" CornerRadius="0" BorderThickness="0,1,0,0">
+        <StackPanel Orientation="Horizontal" Height="40" Padding="16,0,0,0">
+            <TextBlock Text="{x:Bind AppViewModel.ChatViewModel.ChatInfo, Converter={StaticResource JsonObjectConverter}, ConverterParameter=displayName, Mode=OneWay}" FontSize="18" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ScrollViewer>
+            <ItemsControl>
+                
+            </ItemsControl>
+        </ScrollViewer>
+        <TextBox Grid.Row="2" x:Name="TextBox_Send" TextWrapping="Wrap" AcceptsReturn="True" Height="160" CornerRadius="0" BorderThickness="0,1,0,0">
             <TextBox.Resources>
                 <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,1,0,0</Thickness>
                 <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
@@ -20,8 +29,8 @@
                 <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
             </TextBox.Resources>
         </TextBox>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Padding="8" HorizontalAlignment="Right">
-            <Button MinWidth="100">发送</Button>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Padding="8" HorizontalAlignment="Right">
+            <Button MinWidth="100" Click="Button_SendMsg_Click">发送</Button>
         </StackPanel>
     </Grid>
 </UserControl>

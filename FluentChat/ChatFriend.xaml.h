@@ -10,6 +10,9 @@ namespace winrt::FluentChat::implementation
     struct ChatFriend : ChatFriendT<ChatFriend>
     {
         ChatFriend();
+        FluentChat::AppViewModel AppViewModel();
+        FluentChat::TransportService TransportService();
+        Windows::Foundation::IAsyncAction Button_SendMsg_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

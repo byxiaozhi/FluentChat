@@ -10,11 +10,11 @@ public class FriendRecentEntity {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @OneToOne
-    @JoinColumn(name = "friend_id", nullable = false)
+    @JoinColumn(name = "friend_id")
     private FriendEntity to;
 
     @Column(nullable = false)

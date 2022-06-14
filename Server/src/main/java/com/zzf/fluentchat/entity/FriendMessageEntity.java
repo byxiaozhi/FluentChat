@@ -73,5 +73,4 @@ public class FriendMessageEntity {
     public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
     }
-
 }

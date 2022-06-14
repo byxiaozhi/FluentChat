@@ -59,7 +59,7 @@ public class FriendController {
             return str1.compareTo(str2);
         }).map(e -> {
             var map = entityConverter.convert(e);
-            map.put("displayName", e.getAlias().isEmpty() ? e.getUser().getNickname() : e.getAlias());
+            map.put("displayName", e.getAlias().isEmpty() ? e.getFriend().getNickname() : e.getAlias());
             return map;
         }).toList();
         return Map.of("friends", friends, "success", true, "message", "操作成功");
