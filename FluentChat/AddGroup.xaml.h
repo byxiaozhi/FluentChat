@@ -10,6 +10,8 @@ namespace winrt::FluentChat::implementation
     struct AddGroup : AddGroupT<AddGroup>
     {
         AddGroup();
+        FluentChat::AppViewModel AppViewModel();
+        FluentChat::TransportService TransportService();
         void Search_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }

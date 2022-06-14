@@ -4,6 +4,5 @@ namespace FluentChat
     runtimeclass CreateGroup : Microsoft.UI.Xaml.Controls.UserControl
     {
         CreateGroup();
-        Int32 MyProperty;
     }
 }

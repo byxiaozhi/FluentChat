@@ -1,14 +1,14 @@
 ﻿#include "pch.h"
 #include "CreateGroup.xaml.h"
+#include "App.xaml.h"
 #if __has_include("CreateGroup.g.cpp")
 #include "CreateGroup.g.cpp"
 #endif
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using namespace Windows::Foundation;
+using namespace Windows::Data::Json;
 
 namespace winrt::FluentChat::implementation
 {
@@ -16,19 +16,12 @@ namespace winrt::FluentChat::implementation
     {
         InitializeComponent();
     }
-
-    int32_t CreateGroup::MyProperty()
+    FluentChat::AppViewModel CreateGroup::AppViewModel()
     {
-        throw hresult_not_implemented();
+        return Application::Current().try_as<App>()->AppViewModel();
     }
-
-    void CreateGroup::MyProperty(int32_t /* value */)
+    FluentChat::TransportService CreateGroup::TransportService()
     {
-        throw hresult_not_implemented();
-    }
-
-    void CreateGroup::myButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        myButton().Content(box_value(L"Clicked"));
+        return AppViewModel().TransportService();
     }
 }

@@ -71,6 +71,12 @@
     <Midl Include="EqualConverter.idl">
       <Filter>Resources\Converters</Filter>
     </Midl>
+    <Midl Include="JsonObjectConverter.idl">
+      <Filter>Resources\Converters</Filter>
+    </Midl>
+    <Midl Include="JsonArrayConverter.idl">
+      <Filter>Resources\Converters</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -286,6 +292,9 @@
     </Filter>
     <Filter Include="Utilities\header">
       <UniqueIdentifier>{de4d14c4-aa77-4ebe-9efc-457d6228d900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{921d0711-61ec-4c23-97e6-0a323b905ad4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

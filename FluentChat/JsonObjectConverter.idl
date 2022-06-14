@@ -1,0 +1,8 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass JsonObjectConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        JsonObjectConverter();
+    }
+}

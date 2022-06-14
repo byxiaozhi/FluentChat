@@ -144,6 +144,14 @@
       <DependentUpon>GroupPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="JsonArrayConverter.h">
+      <DependentUpon>JsonArrayConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="JsonObjectConverter.h">
+      <DependentUpon>JsonObjectConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="LoginPage.xaml.h">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -287,6 +295,14 @@
       <DependentUpon>GroupPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="JsonArrayConverter.cpp">
+      <DependentUpon>JsonArrayConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="JsonObjectConverter.cpp">
+      <DependentUpon>JsonObjectConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="LoginPage.xaml.cpp">
       <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -381,6 +397,12 @@
     <Midl Include="GroupPage.idl">
       <DependentUpon>GroupPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="JsonArrayConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="JsonObjectConverter.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="LoginPage.idl">
       <DependentUpon>LoginPage.xaml</DependentUpon>

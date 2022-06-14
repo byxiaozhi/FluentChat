@@ -46,7 +46,7 @@ public class FriendController {
     public Map<String, Object> listRequest(Map<String, Object> args, Map<String, Object> session) {
         var user = (UserEntity) session.get("user");
         var page = PageRequest.of(0, 100);
-        var requests = friendRepository.findPending(user, page).get().map(entityConverter::convert);
+        var requests = friendRepository.findPending(user, page).get().map(entityConverter::convert).toList();
         return Map.of("requests", requests, "success", true, "message", "操作成功");
     }
 
@@ -61,9 +61,18 @@ public class FriendController {
     }
 
     public Map<String, Object> search(Map<String, Object> args, Map<String, Object> session) {
+        var user = (UserEntity) session.get("user");
         var value = args.get("value").toString();
         var page = PageRequest.of(0, 100);
-        var results = userRepository.searchByEmailOrNickname(value, page).get().map(entityConverter::convert);
+        var results = userRepository.searchByEmailOrNickname(value, page).get()
+                .filter(e->!e.getId().equals(user.getId())).map(e->{
+            var map = entityConverter.convert(e);
+            var friendDirect = friendRepository.find(user, e);
+            var friendInverse = friendRepository.find(e, user);
+            map.put("stateDirect",friendDirect == null ? -1 : friendDirect.getState());
+            map.put("friendInverse",friendInverse == null ? -1 : friendInverse.getState());
+            return map;
+        }).toList();
         return Map.of("results", results, "success", true, "message", "操作成功");
     }
 
@@ -72,8 +81,10 @@ public class FriendController {
         if (friend_nullable.isEmpty()) return Map.of("success", false, "message", "用户ID不存在");
         var user = (UserEntity) session.get("user");
         var friend = friend_nullable.get();
+        if(user.getId().equals(friend.getId()))
+            return Map.of("success", false, "message", "不能添加自己");
         var friendDirect = new FriendEntity();
-        friendDirect.setState(FriendEntity.State.pending);
+        friendDirect.setState(FriendEntity.State.normal);
         friendDirect.setUser(user);
         friendDirect.setFriend(friend);
         friendRepository.save(friendDirect);
@@ -82,6 +93,8 @@ public class FriendController {
         friendInverse.setUser(friend);
         friendInverse.setFriend(user);
         friendRepository.save(friendInverse);
+        var map = Map.of("from", (Object) entityConverter.convert(friend));
+        notificationService.sendToUser(friend.getId(), "addRequestReceived", map);
         return Map.of("success", true, "message", "添加成功");
     }
 
@@ -91,7 +104,7 @@ public class FriendController {
         var user = (UserEntity) session.get("user");
         var friend = friend_nullable.get();
         var friendDirect = friendRepository.findPending(user, friend);
-        var friendInverse = friendRepository.findPending(friend, user);
+        var friendInverse = friendRepository.findNormal(friend, user);
         friendDirect.setState(FriendEntity.State.normal);
         friendInverse.setState(FriendEntity.State.normal);
         friendRepository.save(friendDirect);
@@ -108,6 +121,8 @@ public class FriendController {
         var friend = friend_nullable.get();
         friendRepository.deleteFriend(user, friend);
         friendRepository.deleteFriend(friend, user);
+        var map = Map.of("from", (Object) entityConverter.convert(friend));
+        notificationService.sendToUser(friend.getId(), "addRequestRefuse", map);
         return Map.of("success", true, "message", "操作成功");
     }
 

@@ -14,31 +14,61 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox PlaceholderText="请输入邮箱/昵称" x:Name="TextBox_Search"/>
+                <TextBox PlaceholderText="请输入邮箱/昵称" x:Name="TextBox_Search" TextChanged="TextBox_Search_TextChanged"/>
                 <Button Grid.Column="1" MinWidth="100" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Stretch" Click="Search_Click">搜索</Button>
             </Grid>
         </StackPanel>
         <StackPanel>
             <StackPanel Spacing="4" Visibility="{Binding Text, ElementName=TextBox_Search, Converter={StaticResource EmptyToBoolReverseConverter}}">
-                <TextBlock>好友请求</TextBlock>
-                <local:SettingItem Title="XXXX" Description="111@qq.com">
-                    <local:SettingItem.Operate>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
-                            <Button Style="{ThemeResource AccentButtonStyle}">接受</Button>
-                            <Button>拒绝</Button>
-                        </StackPanel>
-                    </local:SettingItem.Operate>
-                </local:SettingItem>
+                <TextBlock Visibility="{Binding Visibility, ElementName=ItemsControl_Request}">好友请求</TextBlock>
+                <ItemsControl x:Name="ItemsControl_Request" Loaded="ItemsControl_Request_Loaded" Visibility="Collapsed">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:SettingItem 
+                                Title="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=nickName}"  
+                                Description="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=email}">
+                                <local:SettingItem.Operate>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Button Tag="{Binding}" Style="{ThemeResource AccentButtonStyle}" Click="Accept_Click">接受</Button>
+                                        <Button Tag="{Binding}" Click="Refuse_Click">拒绝</Button>
+                                    </StackPanel>
+                                </local:SettingItem.Operate>
+                            </local:SettingItem>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-            <StackPanel Spacing="4" Visibility="{Binding Text, ElementName=TextBox_Search, Converter={StaticResource EmptyToBoolConverter}}">
+            <StackPanel Spacing="4" x:Name="Panel_Search" Visibility="Collapsed">
                 <TextBlock>搜索结果</TextBlock>
-                <local:SettingItem Title="XXXX" Description="111@qq.com">
-                    <local:SettingItem.Operate>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
-                            <Button Style="{ThemeResource AccentButtonStyle}">添加好友</Button>
-                        </StackPanel>
-                    </local:SettingItem.Operate>
-                </local:SettingItem>
+                <ItemsControl x:Name="ItemsControl_Search">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:SettingItem 
+                                Title="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=nickName}" 
+                                Description="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=email}">
+                                <local:SettingItem.Operate>
+                                    <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{Binding Converter={StaticResource EqualConverter}}">
+                                        <Button 
+                                            Style="{ThemeResource AccentButtonStyle}" 
+                                            Tag="{Binding}" 
+                                            Loaded="Button_Add_Loaded"
+                                            Click="Button_Add_Click">添加好友</Button>
+                                    </StackPanel>
+                                </local:SettingItem.Operate>
+                            </local:SettingItem>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </StackPanel>
     </StackPanel>

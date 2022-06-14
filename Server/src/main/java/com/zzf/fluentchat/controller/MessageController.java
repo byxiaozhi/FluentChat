@@ -64,7 +64,7 @@ public class MessageController {
         var page = PageRequest.of(0, 100);
         var messages1 = friendMessageRepository.findByFromAndTo(user, friend, page).get();
         var messages2 = friendMessageRepository.findByFromAndTo(friend.getFriend(), friendInverse, page).get();
-        var messages = Stream.concat(messages1, messages2).sorted((a, b) -> b.getSendDate().compareTo(a.getSendDate())).limit(page.getPageSize()).map(entityConverter::convert);
+        var messages = Stream.concat(messages1, messages2).sorted((a, b) -> b.getSendDate().compareTo(a.getSendDate())).limit(page.getPageSize()).map(entityConverter::convert).toList();
         return Map.of("messages", messages, "success", true, "message", "操作成功");
     }
 
@@ -76,7 +76,7 @@ public class MessageController {
         if (memberRepository.memberExist(group, user).isEmpty())
             return Map.of("success", false, "message", "群ID不存在");
         var page = PageRequest.of(0, 100);
-        var messages = groupMessageRepository.findByGroup(group, page).get().map(entityConverter::convert);
+        var messages = groupMessageRepository.findByGroup(group, page).get().map(entityConverter::convert).toList();
         return Map.of("messages", messages, "success", true, "message", "操作成功");
     }
 
@@ -114,7 +114,7 @@ public class MessageController {
             map.put("lastMessage", t.getMessage());
             recent.add(map);
         }
-        var sortedRecent = recent.stream().sorted((a, b) -> ((Date) b.get("updateDate")).compareTo((Date) a.get("updateDate")));
+        var sortedRecent = recent.stream().sorted((a, b) -> ((Date) b.get("updateDate")).compareTo((Date) a.get("updateDate"))).toList();
         return Map.of("recent", sortedRecent, "success", true, "message", "操作成功");
     }
 

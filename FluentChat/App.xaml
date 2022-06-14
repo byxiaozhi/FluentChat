@@ -12,6 +12,7 @@
             <local:EmptyToBoolConverter x:Key="EmptyToBoolReverseConverter" IsReverse="True"/>
             <local:EqualConverter x:Key="EqualConverter"/>
             <local:EqualConverter x:Key="NotEqualConverter" IsReverse="True"/>
+            <local:JsonObjectConverter x:Key="JsonObjectConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

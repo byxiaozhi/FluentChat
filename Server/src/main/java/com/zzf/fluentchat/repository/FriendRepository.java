@@ -5,7 +5,10 @@ import com.zzf.fluentchat.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import javax.transaction.Transactional;
 
 public interface FriendRepository extends JpaRepository<FriendEntity, Integer> {
 
@@ -16,6 +19,11 @@ public interface FriendRepository extends JpaRepository<FriendEntity, Integer> {
     FriendEntity findPending(UserEntity user, UserEntity friend);
 
     @Query(value = "select t from friend_info t where t.user = ?1 and t.friend = ?2")
+    FriendEntity find(UserEntity user, UserEntity friend);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from friend_info t where t.user = ?1 and t.friend = ?2")
     void deleteFriend(UserEntity user, UserEntity friend);
 
     @Query(value = "select t from friend_info t where t.user = ?1 and t.state = 0")
