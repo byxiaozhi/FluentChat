@@ -25,7 +25,11 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <ListView Grid.Row="1" x:Name="ListView_Friends" Loaded="ListView_Friends_Loaded">
+            <ListView 
+                Grid.Row="1" 
+                x:Name="ListView_Friends" 
+                Loaded="ListView_Friends_Loaded"
+                SelectionChanged="ListView_Friends_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ListViewItem>

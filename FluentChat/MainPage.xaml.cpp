@@ -41,7 +41,7 @@ namespace winrt::FluentChat::implementation
 			rightColumn().Width(GridLength{ 0, GridUnitType::Pixel });
 		}
 		else {
-			leftColumn().Width(GridLength{ 300, GridUnitType::Pixel });
+			leftColumn().Width(GridLength{ 240, GridUnitType::Pixel });
 			rightColumn().Width(GridLength{ 1, GridUnitType::Star });
 		}
 	}

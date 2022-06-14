@@ -20,6 +20,7 @@ public class EntityConverter {
     public Map<String, Object> convert(FriendEntity friend) {
         var map = new HashMap<String, Object>();
         var user = friend.getFriend();
+        map.put("friendId", friend.getId());
         map.put("userId", user.getId());
         map.put("nickName", user.getNickname());
         map.put("email", user.getEmail());

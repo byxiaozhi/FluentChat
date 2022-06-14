@@ -10,6 +10,7 @@ namespace winrt::FluentChat::implementation
         FluentChat::AppViewModel AppViewModel();
         FluentChat::TransportService TransportService();
         winrt::Windows::Foundation::IAsyncAction ListView_Friends_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ListView_Friends_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
     };
 }
 

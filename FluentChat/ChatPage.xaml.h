@@ -7,6 +7,7 @@ namespace winrt::FluentChat::implementation
     struct ChatPage : ChatPageT<ChatPage>
     {
         ChatPage();
+        FluentChat::AppViewModel AppViewModel();
     };
 }
 

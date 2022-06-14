@@ -52,6 +52,12 @@
     <Page Include="CreateGroup.xaml">
       <Filter>Controls</Filter>
     </Page>
+    <Page Include="ChatFriend.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="ChatGroup.xaml">
+      <Filter>Controls</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -76,6 +82,9 @@
     </Midl>
     <Midl Include="JsonArrayConverter.idl">
       <Filter>Resources\Converters</Filter>
+    </Midl>
+    <Midl Include="ChatViewModel.idl">
+      <Filter>ViewModels</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 import "UserViewModel.idl";
+import "ChatViewModel.idl";
 import "TransportService.idl";
 
 namespace FluentChat
@@ -7,8 +8,9 @@ namespace FluentChat
 	runtimeclass AppViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
 	{
 		AppViewModel();
-		UserViewModel UserViewModel { get; };
-		TransportService TransportService { get; };
+		UserViewModel UserViewModel{ get; };
+		ChatViewModel ChatViewModel{ get; };
+		TransportService TransportService{ get; };
 		void OpenMainWindow();
 		void OpenStartWindow();
 	}

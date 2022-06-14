@@ -114,8 +114,20 @@
       <DependentUpon>AppViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ChatFriend.xaml.h">
+      <DependentUpon>ChatFriend.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ChatGroup.xaml.h">
+      <DependentUpon>ChatGroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ChatPage.xaml.h">
       <DependentUpon>ChatPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ChatViewModel.h">
+      <DependentUpon>ChatViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Common.h" />
@@ -210,6 +222,12 @@
     <Page Include="AddGroup.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ChatFriend.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChatGroup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ChatPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -266,8 +284,20 @@
       <DependentUpon>AppViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ChatFriend.xaml.cpp">
+      <DependentUpon>ChatFriend.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ChatGroup.xaml.cpp">
+      <DependentUpon>ChatGroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ChatPage.xaml.cpp">
       <DependentUpon>ChatPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ChatViewModel.cpp">
+      <DependentUpon>ChatViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Common.cpp" />
@@ -372,6 +402,14 @@
     <Midl Include="AppViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="ChatFriend.idl">
+      <DependentUpon>ChatFriend.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ChatGroup.idl">
+      <DependentUpon>ChatGroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ChatPage.idl">
       <DependentUpon>ChatPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -379,6 +417,9 @@
     <Midl Include="AddPage.idl">
       <DependentUpon>AddPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ChatViewModel.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CreateGroup.idl">
       <DependentUpon>CreateGroup.xaml</DependentUpon>

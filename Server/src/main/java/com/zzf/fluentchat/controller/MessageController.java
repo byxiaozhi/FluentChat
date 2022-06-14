@@ -92,6 +92,7 @@ public class MessageController {
             var toUser = toFriend.getUser();
             userMap.put("alias", toFriend.getAlias());
             userMap.put("nickName", toUser.getNickname());
+            userMap.put("displayName", toFriend.getAlias().isEmpty() ? toFriend.getUser().getNickname() : toFriend.getAlias());
             userMap.put("userId", toUser.getId());
             var map = new HashMap<String, Object>();
             map.put("type", 0);
@@ -106,6 +107,7 @@ public class MessageController {
             var toMember = memberRepository.findByGroupAndUser(toGroup, user);
             userMap.put("alias", toMember.getGroupAlias());
             userMap.put("name", toGroup.getName());
+            userMap.put("displayName", toMember.getGroupAlias().isEmpty() ? toGroup.getName() : toMember.getGroupAlias());
             userMap.put("groupId", toGroup.getId());
             var map = new HashMap<String, Object>();
             map.put("type", 0);

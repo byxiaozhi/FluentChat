@@ -13,6 +13,7 @@ namespace winrt::FluentChat::implementation
 	{
 		AppViewModel();
 		FluentChat::UserViewModel UserViewModel();
+		FluentChat::ChatViewModel ChatViewModel();
 		FluentChat::TransportService TransportService();
 		void OpenMainWindow();
 		void OpenStartWindow();
@@ -24,6 +25,7 @@ namespace winrt::FluentChat::implementation
 		void OnDisconnect(winrt::Windows::Foundation::IInspectable const& sender, bool const& args);
 		void RaisePropertyChanged(hstring propertyName);
 		winrt::FluentChat::UserViewModel m_userViewModel;
+		winrt::FluentChat::ChatViewModel m_chatViewModel;
 		winrt::FluentChat::TransportService m_transportService;
 		winrt::FluentChat::MainWindow m_mainWindow{ nullptr };
 		winrt::FluentChat::StartWindow m_startWindow{ nullptr };

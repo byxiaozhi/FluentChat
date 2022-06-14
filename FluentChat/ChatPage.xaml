@@ -6,23 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Height="160" CornerRadius="0" BorderThickness="0,1,0,0">
-            <TextBox.Resources>
-                <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,1,0,0</Thickness>
-                <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
-                <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
-                <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
-            </TextBox.Resources>
-        </TextBox>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Padding="8" HorizontalAlignment="Right">
-            <Button MinWidth="100">发送</Button>
-        </StackPanel>
+    <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+        <local:ChatFriend x:Name="ChatFriendControl" x:Load="{x:Bind AppViewModel.ChatViewModel.ChatType, Converter={StaticResource EqualConverter}, ConverterParameter=0, Mode=OneWay}"/>
+        <local:ChatGroup x:Name="ChatGroupControl" x:Load="{x:Bind AppViewModel.ChatViewModel.ChatType, Converter={StaticResource EqualConverter}, ConverterParameter=1, Mode=OneWay}"/>
     </Grid>
 </Page>

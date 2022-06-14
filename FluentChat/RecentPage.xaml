@@ -25,10 +25,6 @@
             </StackPanel>
         </Grid>
         <ListView Grid.Row="1">
-            <ListViewItem>XXXX</ListViewItem>
-            <ListViewItem>XXXX</ListViewItem>
-            <ListViewItem>XXXX</ListViewItem>
-            <ListViewItem>XXXX</ListViewItem>
         </ListView>
     </Grid>
 </Page>

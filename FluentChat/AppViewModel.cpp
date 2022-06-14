@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "AppViewModel.h"
 #include "UserViewModel.h"
+#include "ChatViewModel.h"
 #include "TransportService.h"
 #if __has_include("AppViewModel.g.cpp")
 #include "AppViewModel.g.cpp"
@@ -20,6 +21,11 @@ namespace winrt::FluentChat::implementation
 	winrt::FluentChat::UserViewModel AppViewModel::UserViewModel()
 	{
 		return m_userViewModel;
+	}
+
+	FluentChat::ChatViewModel AppViewModel::ChatViewModel()
+	{
+		return m_chatViewModel;
 	}
 
 	FluentChat::TransportService AppViewModel::TransportService()

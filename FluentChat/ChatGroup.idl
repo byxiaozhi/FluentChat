@@ -1,0 +1,9 @@
+namespace FluentChat
+{
+    [default_interface]
+    runtimeclass ChatGroup : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        ChatGroup();
+        Int32 MyProperty;
+    }
+}
