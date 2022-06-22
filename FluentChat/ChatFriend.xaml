@@ -5,7 +5,9 @@
     xmlns:local="using:FluentChat"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="UserControl_Loaded"
+    Unloaded="UserControl_Unloaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,9 +18,20 @@
         <StackPanel Orientation="Horizontal" Height="40" Padding="16,0,0,0">
             <TextBlock Text="{x:Bind AppViewModel.ChatViewModel.ChatInfo, Converter={StaticResource JsonObjectConverter}, ConverterParameter=displayName, Mode=OneWay}" FontSize="18" VerticalAlignment="Center"/>
         </StackPanel>
-        <ScrollViewer>
-            <ItemsControl>
-                
+        <ScrollViewer Grid.Row="1" x:Name="ScrollViewer_Messages">
+            <ItemsControl x:Name="ItemsControl_Messages" Loaded="ItemsControl_Messages_Loaded">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="8" Padding="8,0,8,8"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Padding="8" Background="{ThemeResource CardBackgroundFillColorDefault}" BorderBrush="{ThemeResource CardStrokeColorDefault}" Orientation="Horizontal" HorizontalAlignment="Left" BorderThickness="1" CornerRadius="4">
+                            <TextBlock Text="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
         <TextBox Grid.Row="2" x:Name="TextBox_Send" TextWrapping="Wrap" AcceptsReturn="True" Height="160" CornerRadius="0" BorderThickness="0,1,0,0">

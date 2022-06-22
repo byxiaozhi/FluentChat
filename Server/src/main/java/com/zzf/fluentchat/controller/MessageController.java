@@ -60,7 +60,8 @@ public class MessageController {
         if (friend_nullable.isEmpty()) return Map.of("success", false, "message", "用户ID不存在");
         var user = (UserEntity) session.get("user");
         var friend = friend_nullable.get();
-        var friendInverse = friendRepository.findNormal(friend.getUser(), user);
+        var friendUser = friend.getFriend();
+        var friendInverse = friendRepository.findNormal(friendUser, user);
         var page = PageRequest.of(0, 100);
         var messages1 = friendMessageRepository.findByFromAndTo(user, friend, page).get();
         var messages2 = friendMessageRepository.findByFromAndTo(friend.getFriend(), friendInverse, page).get();
