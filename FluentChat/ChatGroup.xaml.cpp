@@ -94,6 +94,12 @@ namespace winrt::FluentChat::implementation
 		auto position = args.GetNamedString(L"position");
 		return position == L"right" ? HorizontalAlignment::Right : HorizontalAlignment::Left;
 	}
+	winrt::hstring ChatGroup::DisplayNameConverter(Windows::Data::Json::JsonObject args)
+	{
+		auto from = args.GetNamedObject(L"from").GetObjectW();
+		auto nickName = from.GetNamedString(L"nickName");
+		return nickName;
+	}
 	void ChatGroup::ChatViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
 	{
 		if (e.PropertyName() == L"ChatInfo") {

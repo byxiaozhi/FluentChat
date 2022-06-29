@@ -40,6 +40,7 @@ namespace winrt::FluentChat::implementation
 		if (response.GetNamedBoolean(L"success")) {
 			TextBox_Send().Text(L"");
 			JsonObject json;
+			json.SetNamedValue(L"nickName", JsonValue::CreateStringValue(AppViewModel().UserViewModel().NickName()));
 			json.SetNamedValue(L"message", message);
 			json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
 			ListView_Messages().Items().Append(json);

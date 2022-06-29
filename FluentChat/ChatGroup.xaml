@@ -22,29 +22,32 @@
         <ListView Grid.Row="1" x:Name="ListView_Messages" Loaded="ListView_Messages_Loaded" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="json:JsonObject">
-                    <Grid
-                        Background="{ThemeResource CardBackgroundFillColorDefault}" 
-                        BorderBrush="{ThemeResource CardStrokeColorDefault}" 
-                        HorizontalAlignment="{x:Bind local:ChatFriend.BubblePositionConverter((json:JsonObject))}" 
-                        BorderThickness="1" 
-                        CornerRadius="4">
-                        <TextBlock Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" Padding="8" Foreground="Transparent"/>
-                        <TextBox 
-                            Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" 
-                            IsReadOnly="True" 
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True">
-                            <TextBox.Resources>
-                                <x:Double x:Key="TextControlThemeMinWidth">24</x:Double>
-                                <Thickness x:Key="TextControlThemePadding">8</Thickness>
-                                <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
-                                <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
-                                <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
-                                <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
-                                <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
-                            </TextBox.Resources>
-                        </TextBox>
-                    </Grid>
+                    <StackPanel>
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondary}" Text="{x:Bind local:ChatGroup.DisplayNameConverter((json:JsonObject))}" HorizontalAlignment="{x:Bind local:ChatGroup.BubblePositionConverter((json:JsonObject))}" FontSize="12"/>
+                        <Grid
+                            Background="{ThemeResource CardBackgroundFillColorDefault}" 
+                            BorderBrush="{ThemeResource CardStrokeColorDefault}" 
+                            HorizontalAlignment="{x:Bind local:ChatGroup.BubblePositionConverter((json:JsonObject))}" 
+                            BorderThickness="1" 
+                            CornerRadius="4">
+                            <TextBlock Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" Padding="8" Foreground="Transparent"/>
+                            <TextBox 
+                                Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" 
+                                IsReadOnly="True" 
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True">
+                                <TextBox.Resources>
+                                    <x:Double x:Key="TextControlThemeMinWidth">24</x:Double>
+                                    <Thickness x:Key="TextControlThemePadding">8</Thickness>
+                                    <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
+                                    <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+                                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Grid>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
