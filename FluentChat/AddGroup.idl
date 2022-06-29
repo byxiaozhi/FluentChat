@@ -4,5 +4,6 @@ namespace FluentChat
     runtimeclass AddGroup : Microsoft.UI.Xaml.Controls.UserControl
     {
         AddGroup();
+        static String GetGroupId(Windows.Data.Json.JsonObject jsonObject);
     }
 }

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentChat"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:json="using:Windows.Data.Json"
     mc:Ignorable="d">
 
     <StackPanel Spacing="16" Margin="0,8,0,0">
@@ -19,24 +19,37 @@
                 <Button Grid.Column="1" MinWidth="100" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Stretch" Click="Search_Click">搜索</Button>
             </Grid>
         </StackPanel>
-        <StackPanel Spacing="4" Visibility="{Binding Text, ElementName=TextBox_Search, Converter={StaticResource EmptyToBoolConverter}}">
+        <StackPanel Spacing="4" x:Name="Panel_Search" Visibility="Collapsed">
             <TextBlock>搜索结果</TextBlock>
-            <local:SettingItem Title="XXXX" Description="111@qq.com">
-                <local:SettingItem.Operate>
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <Button Style="{ThemeResource AccentButtonStyle}" Content="加入">
-                            <Button.Flyout>
-                                <Flyout>
-                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                        <TextBox PlaceholderText="验证码" MinWidth="100"/>
-                                        <Button Content="确定" />
-                                    </StackPanel>
-                                </Flyout>
-                            </Button.Flyout>
-                        </Button>
-                    </StackPanel>
-                </local:SettingItem.Operate>
-            </local:SettingItem>
+            <ItemsControl x:Name="ItemsControl_Search">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="8"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="json:JsonObject">
+                        <local:SettingItem 
+                                Title="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=name}" 
+                                Description="{x:Bind local:AddGroup.GetGroupId((json:JsonObject))}">
+                            <local:SettingItem.Operate>
+                                <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{Binding Converter={StaticResource EqualConverter}}">
+                                    <Button Style="{ThemeResource AccentButtonStyle}" Content="加入">
+                                        <Button.Flyout>
+                                            <Flyout>
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <TextBox PlaceholderText="验证码" MinWidth="100"/>
+                                                    <Button Content="确定" />
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </StackPanel>
+                            </local:SettingItem.Operate>
+                        </local:SettingItem>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </StackPanel>
 </UserControl>

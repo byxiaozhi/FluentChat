@@ -6,6 +6,7 @@ import com.zzf.fluentchat.entity.MemberEntity;
 import com.zzf.fluentchat.entity.UserEntity;
 import com.zzf.fluentchat.repository.GroupRepository;
 import com.zzf.fluentchat.repository.MemberRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
@@ -62,7 +63,11 @@ public class GroupController {
     }
 
     public Map<String, Object> search(Map<String, Object> args, Map<String, Object> session) {
-        return null;
+        var user = (UserEntity) session.get("user");
+        var value = args.get("value").toString();
+        var page = PageRequest.of(0, 100);
+        var results = groupRepository.searchByNameOrId(value, user, page).get().map(entityConverter::convert).toList();
+        return Map.of("results", results, "success", true, "message", "操作成功");
     }
 
     public Map<String, Object> join(Map<String, Object> args, Map<String, Object> session) {
