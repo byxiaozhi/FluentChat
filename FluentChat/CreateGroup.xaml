@@ -6,4 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="400"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Spacing="12" Margin="0,8,0,0">
+            <StackPanel Spacing="8">
+                <TextBlock>群名称</TextBlock>
+                <TextBox x:Name="TextBox_GroupName"/>
+            </StackPanel>
+            <StackPanel Spacing="8">
+                <TextBlock>加群密码</TextBlock>
+                <TextBox x:Name="TextBox_GroupPassword"/>
+            </StackPanel>
+            <Button Style="{ThemeResource AccentButtonStyle}" x:Name="CreateGroup_Button" Click="CreateGroup_Click">创建群聊</Button>
+        </StackPanel>
+    </Grid>
 </UserControl>

@@ -5,6 +5,8 @@
 #include "winrt/Microsoft.UI.Xaml.Controls.Primitives.h"
 #include "CreateGroup.g.h"
 
+using namespace winrt::Windows::Foundation;
+
 namespace winrt::FluentChat::implementation
 {
     struct CreateGroup : CreateGroupT<CreateGroup>
@@ -12,6 +14,8 @@ namespace winrt::FluentChat::implementation
         CreateGroup();
         FluentChat::AppViewModel AppViewModel();
         FluentChat::TransportService TransportService();
+        IAsyncAction CreateGroup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        IAsyncAction ContentDialog(hstring title, hstring content);
     };
 }
 

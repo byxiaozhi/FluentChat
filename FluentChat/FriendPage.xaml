@@ -36,7 +36,7 @@
                             <TextBlock Text="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=nickName}"/>
                             <ListViewItem.ContextFlyout>
                                 <MenuFlyout AreOpenCloseAnimationsEnabled="False">
-                                    <MenuFlyoutItem Text="修改昵称"/>
+                                    <MenuFlyoutItem Text="修改备注"/>
                                     <MenuFlyoutItem Text="删除好友"/>
                                 </MenuFlyout>
                             </ListViewItem.ContextFlyout>
