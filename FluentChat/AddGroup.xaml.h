@@ -14,6 +14,8 @@ namespace winrt::FluentChat::implementation
         FluentChat::TransportService TransportService();
         winrt::Windows::Foundation::IAsyncAction Search_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         static winrt::hstring GetGroupId(winrt::Windows::Data::Json::JsonObject jsonObject);
+        winrt::Windows::Foundation::IAsyncAction AddGroup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        winrt::Windows::Foundation::IAsyncAction ContentDialog(hstring title, hstring content);
     };
 }
 

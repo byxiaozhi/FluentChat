@@ -38,8 +38,8 @@
                                         <Button.Flyout>
                                             <Flyout>
                                                 <StackPanel Orientation="Horizontal" Spacing="4">
-                                                    <TextBox PlaceholderText="验证码" MinWidth="100"/>
-                                                    <Button Content="确定" />
+                                                    <TextBox PlaceholderText="验证码" MinWidth="100" x:Name="Code"/>
+                                                    <Button Content="确定" Tag="{x:Bind}" Click="AddGroup_Click" />
                                                 </StackPanel>
                                             </Flyout>
                                         </Button.Flyout>

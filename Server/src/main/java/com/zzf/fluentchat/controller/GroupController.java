@@ -66,12 +66,24 @@ public class GroupController {
         var user = (UserEntity) session.get("user");
         var value = args.get("value").toString();
         var page = PageRequest.of(0, 100);
-        var results = groupRepository.searchByNameOrId(value, user, page).get().map(entityConverter::convert).toList();
+        var results = groupRepository.searchByNameOrId(value, user.getId(), page).get().map(entityConverter::convert).toList();
         return Map.of("results", results, "success", true, "message", "操作成功");
     }
 
     public Map<String, Object> join(Map<String, Object> args, Map<String, Object> session) {
-        return null;
+        var user = (UserEntity) session.get("user");
+        var groupId = (int)args.get("groupId");
+        var password = args.get("password");
+        var group = groupRepository.findById(groupId);
+        if(group.isEmpty())
+            return Map.of("success", false, "message", "群号不存在");
+        if(!group.get().getPassword().equals(password))
+            return Map.of("success", false, "message", "加群验证码错误");
+        var member = new MemberEntity();
+        member.setGroup(group.get());
+        member.setUser(user);
+        memberRepository.save(member);
+        return Map.of("success", true, "message", "加入群聊成功");
     }
 
     public Map<String, Object> quit(Map<String, Object> args, Map<String, Object> session) {
