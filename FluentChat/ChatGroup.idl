@@ -1,9 +1,12 @@
+import "AppViewModel.idl";
+
 namespace FluentChat
 {
     [default_interface]
     runtimeclass ChatGroup : Microsoft.UI.Xaml.Controls.UserControl
     {
         ChatGroup();
-        Int32 MyProperty;
+        AppViewModel AppViewModel{ get; };
+        static Microsoft.UI.Xaml.HorizontalAlignment BubblePositionConverter(Windows.Data.Json.JsonObject args);
     }
 }

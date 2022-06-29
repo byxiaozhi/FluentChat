@@ -55,9 +55,9 @@ public class GroupController {
             return str1.compareTo(str2);
         }).map(e -> {
             var map = entityConverter.convert(e);
-            map.put("displayName", e.getName());
+            map.put("displayName", e.getGroup().getName());
             return map;
-        }).toList();;
+        }).toList();
         return Map.of("groups", groups, "success", true, "message", "操作成功");
     }
 
