@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentChat"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:json="using:Windows.Data.Json"
     mc:Ignorable="d"
     Loaded="UserControl_Loaded"
     Unloaded="UserControl_Unloaded">
@@ -18,32 +19,72 @@
         <StackPanel Orientation="Horizontal" Height="40" Padding="16,0,0,0">
             <TextBlock Text="{x:Bind AppViewModel.ChatViewModel.ChatInfo, Converter={StaticResource JsonObjectConverter}, ConverterParameter=displayName, Mode=OneWay}" FontSize="18" VerticalAlignment="Center"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" x:Name="ScrollViewer_Messages">
-            <ItemsControl x:Name="ItemsControl_Messages" Loaded="ItemsControl_Messages_Loaded">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Spacing="8" Padding="8,0,8,8"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Padding="8" Background="{ThemeResource CardBackgroundFillColorDefault}" BorderBrush="{ThemeResource CardStrokeColorDefault}" Orientation="Horizontal" HorizontalAlignment="Left" BorderThickness="1" CornerRadius="4">
-                            <TextBlock Text="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-        <TextBox Grid.Row="2" x:Name="TextBox_Send" TextWrapping="Wrap" AcceptsReturn="True" Height="160" CornerRadius="0" BorderThickness="0,1,0,0">
+        <ListView Grid.Row="1" x:Name="ListView_Messages" Loaded="ListView_Messages_Loaded" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="json:JsonObject">
+                    <Grid
+                        Background="{ThemeResource CardBackgroundFillColorDefault}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefault}" 
+                        HorizontalAlignment="{x:Bind local:ChatFriend.BubblePositionConverter((json:JsonObject))}" 
+                        BorderThickness="1" 
+                        CornerRadius="4">
+                        <TextBlock Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" Padding="8" Foreground="Transparent" x:Name="TextBlock"/>
+                        <TextBox 
+                            Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" 
+                            IsReadOnly="True" 
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True">
+                            <TextBox.Resources>
+                                <x:Double x:Key="TextControlThemeMinWidth">24</x:Double>
+                                <Thickness x:Key="TextControlThemePadding">8</Thickness>
+                                <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
+                                <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+                                <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
+                                <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
+                                <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Margin="8,0,8,8"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <TextBox 
+            Grid.Row="2" 
+            x:Name="TextBox_Send" 
+            TextWrapping="Wrap" 
+            AcceptsReturn="True" 
+            Height="160" 
+            CornerRadius="0" 
+            BorderThickness="0,1,0,0" 
+            KeyboardAcceleratorPlacementMode="Hidden">
             <TextBox.Resources>
                 <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,1,0,0</Thickness>
                 <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
                 <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
                 <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
             </TextBox.Resources>
+            <TextBox.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Enter" Invoked="SendMessage_Invoked"/>
+            </TextBox.KeyboardAccelerators>
         </TextBox>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Padding="8" HorizontalAlignment="Right">
-            <Button MinWidth="100" Click="Button_SendMsg_Click">发送</Button>
+            <Button MinWidth="100" Click="Button_SendMsg_Click" x:Name="Button_SendMsg">发送</Button>
         </StackPanel>
     </Grid>
 </UserControl>

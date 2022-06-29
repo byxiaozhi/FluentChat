@@ -141,7 +141,7 @@ public class MessageController {
         recent.setMessage(message);
         friendRecentRepository.save(recent);
         var map = Map.of("from", entityConverter.convert(friendInverse), "message", message.getMessage());
-        notificationService.sendToUser(friend.getId(), "messageReceive", map);
+        notificationService.sendToUser(friend.getFriend().getId(), "messageReceive", map);
         return Map.of("success", true, "message", "操作成功");
     }
 

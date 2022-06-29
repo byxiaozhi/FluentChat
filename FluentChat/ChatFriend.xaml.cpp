@@ -11,78 +11,94 @@ using namespace Microsoft::UI::Xaml;
 using namespace Windows::Foundation;
 using namespace Windows::Data::Json;
 using namespace Microsoft::UI::Xaml::Data;
+using namespace Microsoft::UI::Xaml::Media;
+using namespace Microsoft::UI::Xaml::Controls;
 
 namespace winrt::FluentChat::implementation
 {
-    ChatFriend::ChatFriend()
-    {
-        InitializeComponent();
-    }
-    FluentChat::AppViewModel ChatFriend::AppViewModel()
-    {
-        return Application::Current().try_as<App>()->AppViewModel();
-    }
-    FluentChat::TransportService ChatFriend::TransportService()
-    {
-        return AppViewModel().TransportService();
-    }
-    IAsyncAction ChatFriend::Button_SendMsg_Click(IInspectable const& sender, RoutedEventArgs const& e)
-    {
-        auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
-        auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
-        JsonObject json;
-        json.SetNamedValue(L"friendId", friendId);
-        json.SetNamedValue(L"message", message);
+	ChatFriend::ChatFriend()
+	{
+		InitializeComponent();
+	}
+	FluentChat::AppViewModel ChatFriend::AppViewModel()
+	{
+		return Application::Current().try_as<App>()->AppViewModel();
+	}
+	FluentChat::TransportService ChatFriend::TransportService()
+	{
+		return AppViewModel().TransportService();
+	}
+	IAsyncAction ChatFriend::Button_SendMsg_Click(IInspectable const& sender, RoutedEventArgs const& e)
+	{
+		auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
+		auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
+		JsonObject json;
+		json.SetNamedValue(L"friendId", friendId);
+		json.SetNamedValue(L"message", message);
 
-        auto response = co_await TransportService().InvokeAsync(L"message", L"sendFriendMessage", json);
-        if (response.GetNamedBoolean(L"success")) {
-            TextBox_Send().Text(L"");
-            JsonObject json;
-            json.SetNamedValue(L"message", message);
-            json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"left"));
-            ItemsControl_Messages().Items().Append(json);
-            co_await Windows::System::Threading::ThreadPool::RunAsync([&](Windows::Foundation::IAsyncAction const& workItem) { Sleep(100); });
-            ScrollViewer_Messages().ScrollToVerticalOffset(ScrollViewer_Messages().ScrollableHeight());
-        }
-    }
-    IAsyncAction ChatFriend::ItemsControl_Messages_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-    {
-        auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
-        JsonObject json;
-        json.SetNamedValue(L"friendId", friendId);
-        auto response = co_await TransportService().InvokeAsync(L"message", L"getFriendMessages", json);
-        auto messages = response.GetNamedArray(L"messages");
-        ItemsControl_Messages().Items().Clear();
-        for (auto& item : messages)
-        {
-            auto itemJson = item.GetObjectW();
-            if (itemJson.GetNamedValue(L"from").GetObjectW().GetNamedString(L"email") == AppViewModel().UserViewModel().Email())
-                json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"left"));
-            else
-                json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
-            ItemsControl_Messages().Items().InsertAt(0, itemJson);
-        }
-    }
-    void ChatFriend::UserControl_Loaded(IInspectable const& sender, RoutedEventArgs const& e)
-    {
-        m_ChatViewModel_EventToken = AppViewModel().ChatViewModel().PropertyChanged({ this ,&ChatFriend::ChatViewModel_PropertyChanged });
-    }
-    void ChatFriend::UserControl_Unloaded(IInspectable const& sender, RoutedEventArgs const& e)
-    {
-        AppViewModel().ChatViewModel().PropertyChanged(m_ChatViewModel_EventToken);
-    }
-    void ChatFriend::ChatViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
-    {
-        if (e.PropertyName() == L"ChatInfo") {
-            ChatFriend::ItemsControl_Messages_Loaded(*this, nullptr);
-        }
-    }
+		auto response = co_await TransportService().InvokeAsync(L"message", L"sendFriendMessage", json);
+		if (response.GetNamedBoolean(L"success")) {
+			TextBox_Send().Text(L"");
+			JsonObject json;
+			json.SetNamedValue(L"message", message);
+			json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
+			ListView_Messages().Items().Append(json);
+		}
+	}
+	IAsyncAction ChatFriend::ListView_Messages_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		co_await LoadMessage();
+	}
+	void ChatFriend::UserControl_Loaded(IInspectable const& sender, RoutedEventArgs const& e)
+	{
+		m_ChatViewModel_EventToken = AppViewModel().ChatViewModel().PropertyChanged({ this ,&ChatFriend::ChatViewModel_PropertyChanged });
+		m_OnDispatch_EventToken = AppViewModel().TransportService().OnDispatch({ this, &ChatFriend::OnDispatch });
+	}
+	void ChatFriend::UserControl_Unloaded(IInspectable const& sender, RoutedEventArgs const& e)
+	{
+		AppViewModel().ChatViewModel().PropertyChanged(m_ChatViewModel_EventToken);
+		AppViewModel().TransportService().OnDispatch(m_OnDispatch_EventToken);
+	}
+	IAsyncAction ChatFriend::LoadMessage()
+	{
+		auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
+		JsonObject json;
+		json.SetNamedValue(L"friendId", friendId);
+		auto response = co_await TransportService().InvokeAsync(L"message", L"getFriendMessages", json);
+		auto messages = response.GetNamedArray(L"messages");
+		ListView_Messages().Items().Clear();
+		for (auto& item : messages)
+		{
+			auto itemJson = item.GetObjectW();
+			auto isSelf = itemJson.GetNamedValue(L"from").GetObjectW().GetNamedString(L"email") == AppViewModel().UserViewModel().Email();
+			itemJson.SetNamedValue(L"position", JsonValue::CreateStringValue(isSelf ? L"right" : L"left"));
+			ListView_Messages().Items().InsertAt(0, itemJson);
+		}
+	}
+	void ChatFriend::SendMessage_Invoked(winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator const& sender, winrt::Microsoft::UI::Xaml::Input::KeyboardAcceleratorInvokedEventArgs const& args)
+	{
+		Button_SendMsg_Click(Button_SendMsg(), nullptr);
+	}
+	void ChatFriend::OnDispatch(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Data::Json::JsonObject const& e)
+	{
+		auto& args = e.GetNamedObject(L"args").GetObjectW();
+		if (e.GetNamedString(L"name") == L"messageReceive") {
+			auto& from = args.GetNamedObject(L"from").GetObjectW();
+			if (from.GetNamedNumber(L"friendId") == AppViewModel().ChatViewModel().ChatInfo().GetNamedNumber(L"friendId")) {
+				args.SetNamedValue(L"position", JsonValue::CreateStringValue(L"left"));
+				ListView_Messages().Items().Append(args);
+			}
+		}
+	}
+	HorizontalAlignment ChatFriend::BubblePositionConverter(Windows::Data::Json::JsonObject args)
+	{
+		auto position = args.GetNamedString(L"position");
+		return position == L"right" ? HorizontalAlignment::Right : HorizontalAlignment::Left;
+	}
+	void ChatFriend::ChatViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
+	{
+		if (e.PropertyName() == L"ChatInfo") {
+			LoadMessage();
+		}
+	}
 }
-
-
-
-
-
-
-
-

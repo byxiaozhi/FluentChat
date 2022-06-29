@@ -2,10 +2,11 @@ import "AppViewModel.idl";
 
 namespace FluentChat
 {
-    [default_interface]
-    runtimeclass ChatFriend : Microsoft.UI.Xaml.Controls.UserControl
-    {
-        ChatFriend();
-    AppViewModel AppViewModel{ get; };
-    }
+	[default_interface]
+	runtimeclass ChatFriend : Microsoft.UI.Xaml.Controls.UserControl
+	{
+		ChatFriend();
+		AppViewModel AppViewModel{ get; };
+		static Microsoft.UI.Xaml.HorizontalAlignment BubblePositionConverter(Windows.Data.Json.JsonObject args);
+	}
 }
