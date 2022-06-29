@@ -63,6 +63,11 @@
                     <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListView.ContextFlyout>
+                <MenuFlyout AreOpenCloseAnimationsEnabled="False">
+                    <MenuFlyoutItem Text="清空聊天记录"/>
+                </MenuFlyout>
+            </ListView.ContextFlyout>
         </ListView>
         <TextBox 
             Grid.Row="2" 
