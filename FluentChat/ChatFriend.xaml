@@ -28,7 +28,7 @@
                         HorizontalAlignment="{x:Bind local:ChatFriend.BubblePositionConverter((json:JsonObject))}" 
                         BorderThickness="1" 
                         CornerRadius="4">
-                        <TextBlock Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" Padding="8" Foreground="Transparent" x:Name="TextBlock"/>
+                        <TextBlock Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" Padding="8" Foreground="Transparent"/>
                         <TextBox 
                             Text="{x:Bind Converter={StaticResource JsonObjectConverter}, ConverterParameter=message}" 
                             IsReadOnly="True" 
