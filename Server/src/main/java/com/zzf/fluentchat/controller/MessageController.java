@@ -1,12 +1,20 @@
 package com.zzf.fluentchat.controller;
 
 import com.zzf.fluentchat.component.EntityConverter;
-import com.zzf.fluentchat.entity.*;
+import com.zzf.fluentchat.entity.FriendMessageEntity;
+import com.zzf.fluentchat.entity.FriendRecentEntity;
+import com.zzf.fluentchat.entity.GroupMessageEntity;
+import com.zzf.fluentchat.entity.UserEntity;
 import com.zzf.fluentchat.repository.*;
 import com.zzf.fluentchat.service.NotificationService;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @Controller
@@ -74,7 +82,7 @@ public class MessageController {
         if (group_nullable.isEmpty()) return Map.of("success", false, "message", "群ID不存在");
         var user = (UserEntity) session.get("user");
         var group = group_nullable.get();
-        if (memberRepository.memberExist(group, user).isEmpty())
+        if (memberRepository.findByGroupAndUser(group, user).isEmpty())
             return Map.of("success", false, "message", "群ID不存在");
         var page = PageRequest.of(0, 100);
         var messages = groupMessageRepository.findByGroup(group, page).get().map(entityConverter::convert).toList();
@@ -106,9 +114,12 @@ public class MessageController {
             var userMap = new HashMap<String, Object>();
             var toGroup = t.getTo();
             var toMember = memberRepository.findByGroupAndUser(toGroup, user);
-            userMap.put("alias", toMember.getGroupAlias());
+            if (toMember.isEmpty())
+                continue;
+            ;
+            userMap.put("alias", toMember.get().getGroupAlias());
             userMap.put("name", toGroup.getName());
-            userMap.put("displayName", toMember.getGroupAlias().isEmpty() ? toGroup.getName() : toMember.getGroupAlias());
+            userMap.put("displayName", toMember.get().getGroupAlias().isEmpty() ? toGroup.getName() : toMember.get().getGroupAlias());
             userMap.put("groupId", toGroup.getId());
             var map = new HashMap<String, Object>();
             map.put("type", 0);
@@ -150,13 +161,17 @@ public class MessageController {
         if (group_nullable.isEmpty()) return Map.of("success", false, "message", "群ID不存在");
         var user = (UserEntity) session.get("user");
         var group = group_nullable.get();
-        if (memberRepository.memberExist(group, user).isEmpty())
+        var member = memberRepository.findByGroupAndUser(group, user);
+        if (member.isEmpty())
             return Map.of("success", false, "message", "群ID不存在");
         var message = new GroupMessageEntity();
         message.setFrom(user);
         message.setTo(group);
         message.setMessage(args.get("message").toString());
         groupMessageRepository.save(message);
+        var map = Map.of("from", entityConverter.convert(member.get()), "message", message.getMessage());
+        for (var otherMember : memberRepository.findByGroup(group, Pageable.unpaged()).stream().filter(x -> !x.getId().equals(member.get().getId())).toList())
+            notificationService.sendToUser(otherMember.getUser().getId(), "groupMessageReceive", map);
         return Map.of("success", true, "message", "操作成功");
     }
 }
