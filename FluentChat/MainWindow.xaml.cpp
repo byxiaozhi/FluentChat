@@ -49,6 +49,8 @@ namespace winrt::FluentChat::implementation
 		m_micaController = nullptr;
 		m_configurationSource = nullptr;
 		m_uiSettings = nullptr;
+		AppViewModel().ChatViewModel().ChatView(0);
+		AppViewModel().ChatViewModel().ChatType(-1);
 	}
 
 	IAsyncAction MainWindow::ColorValuesChanged(Windows::UI::ViewManagement::UISettings s, IInspectable e)
