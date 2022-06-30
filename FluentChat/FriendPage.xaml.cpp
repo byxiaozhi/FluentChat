@@ -41,6 +41,7 @@ namespace winrt::FluentChat::implementation
 		auto chat = AppViewModel().ChatViewModel();
 		if (chat.ChatType() != 0 || chat.ChatInfo() == nullptr || item == nullptr || chat.ChatInfo().GetNamedNumber(L"friendId") != item.GetNamedNumber(L"friendId")) {
 			chat.ChatType(0);
+			chat.ChatView(0);
 			chat.ChatInfo(item);
 		}
 	}
