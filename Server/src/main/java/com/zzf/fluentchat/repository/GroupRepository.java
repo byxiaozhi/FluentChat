@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 
 public interface GroupRepository extends JpaRepository<GroupEntity, Integer> {
-    @Query(value = "select t from group_info t where (t.name like %?1% or t.id = ?1) and t not in (select t1.group from member t1 where t1.user.id = ?2 and t1.group = t)")
+    @Query(value = "select t from t_group_info t where (t.name like %?1% or t.id = ?1) and t not in (select t1.group from t_member t1 where t1.user.id = ?2 and t1.group = t)")
     Page<GroupEntity> searchByNameOrId(String name, int userId, Pageable pageable);
 }

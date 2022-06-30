@@ -5,13 +5,13 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-@Entity(name = "member")
+@Entity(name = "t_member")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uc_member_group", columnNames = {"group_id", "user_id"})
 })
 public class MemberEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
     private Integer id;
 
     @ManyToOne
@@ -23,10 +23,10 @@ public class MemberEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String groupAlias = "";
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String memberAlias = "";
 
     public Integer getId() {
@@ -54,7 +54,7 @@ public class MemberEntity {
     }
 
     public String getGroupAlias() {
-        return groupAlias;
+        return groupAlias == null ? "" : groupAlias;
     }
 
     public void setGroupAlias(String groupAlias) {
@@ -62,7 +62,7 @@ public class MemberEntity {
     }
 
     public String getMemberAlias() {
-        return memberAlias;
+        return memberAlias == null ? "" : memberAlias;
     }
 
     public void setMemberAlias(String memberAlias) {

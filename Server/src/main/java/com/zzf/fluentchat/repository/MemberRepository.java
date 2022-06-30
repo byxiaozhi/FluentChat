@@ -12,17 +12,17 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
-    @Query(value = "select t from member t where t.group = ?1")
+    @Query(value = "select t from t_member t where t.group = ?1")
     Page<MemberEntity> findByGroup(GroupEntity group, Pageable pageable);
 
-    @Query(value = "select t from member t where t.group = ?1 and t.user = ?2")
+    @Query(value = "select t from t_member t where t.group = ?1 and t.user = ?2")
     Optional<MemberEntity> findByGroupAndUser(GroupEntity group, UserEntity user);
 
-    @Query(value = "select t from member t where t.user = ?1")
+    @Query(value = "select t from t_member t where t.user = ?1")
     Page<MemberEntity> findByUser(UserEntity user, Pageable pageable);
 
     @Modifying
     @Transactional
-    @Query(value = "delete from member t where t.group = ?1 and t.user = ?2")
+    @Query(value = "delete from t_member t where t.group = ?1 and t.user = ?2")
     void deleteMember(GroupEntity group, UserEntity user);
 }

@@ -12,12 +12,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     UserEntity findByEmail(String email);
 
-    @Query(value = "select t from user t where t.email like %?1% or t.nickname like %?1%")
+    @Query(value = "select t from t_user t where t.email like %?1% or t.nickname like %?1%")
     Page<UserEntity> searchByEmailOrNickname(String value, Pageable pageable);
 
-    @Query("select u from user u order by u.id desc")
+    @Query("select u from t_user u order by u.id desc")
     List<UserEntity> selectAll(Pageable pageable);
 
-    @Query("select u from user u where u.email like %?1% or u.nickname like %?1% order by u.id desc")
+    @Query("select u from t_user u where u.email like %?1% or u.nickname like %?1% order by u.id desc")
     List<UserEntity> selectAll(Pageable pageable, String query);
 }

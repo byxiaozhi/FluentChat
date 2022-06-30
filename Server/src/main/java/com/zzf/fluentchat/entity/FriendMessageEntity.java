@@ -6,11 +6,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "friend_message")
+@Entity(name = "t_friend_message")
 public class FriendMessageEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friend_message_seq")
     private Integer id;
 
     @OneToOne

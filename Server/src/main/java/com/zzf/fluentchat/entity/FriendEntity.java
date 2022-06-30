@@ -5,7 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-@Entity(name = "friend_info")
+@Entity(name = "t_friend_info")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uc_friend_user", columnNames = {"user_id", "friend_id"})
 })
@@ -24,7 +24,7 @@ public class FriendEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friend_seq")
     private Integer id;
 
     @ManyToOne
@@ -37,7 +37,7 @@ public class FriendEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity friend;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String alias = "";
 
     @Column(nullable = false)
@@ -68,7 +68,7 @@ public class FriendEntity {
     }
 
     public String getAlias() {
-        return alias;
+        return alias == null ? "" : alias;
     }
 
     public void setAlias(String alias) {

@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost/fluentchat
-    username: root
+    url: jdbc:oracle:thin:@192.168.1.100:1521:ORCL
+    username: system
     password: root
+    driver-class-name: oracle.jdbc.driver.OracleDriver
   jpa:
     hibernate:
       ddl-auto: update

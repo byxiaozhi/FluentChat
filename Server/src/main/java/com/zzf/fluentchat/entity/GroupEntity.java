@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-@Entity(name = "group_info")
+@Entity(name = "t_group_info")
 public class GroupEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_info_seq")
     private Integer id;
 
     @Column(nullable = false)

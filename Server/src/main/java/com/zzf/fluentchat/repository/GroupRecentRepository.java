@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GroupRecentRepository extends JpaRepository<GroupRecentEntity, Integer> {
-    @Query(value = "select t from group_recent t where t.user=?1 order by t.sendDate desc")
+    @Query(value = "select t from t_group_recent t where t.user=?1 order by t.sendDate desc")
     Page<GroupRecentEntity> findByUser(UserEntity user, Pageable pageable);
 }

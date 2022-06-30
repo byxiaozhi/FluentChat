@@ -10,11 +10,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "user")
+@Entity(name = "t_user")
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Integer id;
 
     @Column(nullable = false)

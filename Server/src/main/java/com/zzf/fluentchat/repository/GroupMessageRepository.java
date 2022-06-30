@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GroupMessageRepository extends JpaRepository<GroupMessageEntity, Integer> {
-    @Query(value = "select t from group_message t where t.to = ?1 order by t.sendDate desc")
+    @Query(value = "select t from t_group_message t where t.to = ?1 order by t.sendDate desc")
     Page<GroupMessageEntity> findByGroup(GroupEntity group, Pageable pageable);
 }

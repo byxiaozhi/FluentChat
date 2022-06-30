@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface FriendMessageRepository extends JpaRepository<FriendMessageEntity, Integer> {
 
-    @Query(value = "select t from friend_message t where t.from = ?1 and t.to = ?2 order by t.sendDate desc")
+    @Query(value = "select t from t_friend_message t where t.from = ?1 and t.to = ?2 order by t.sendDate desc")
     Page<FriendMessageEntity> findByFromAndTo(UserEntity from, FriendEntity to, Pageable pageable);
 }

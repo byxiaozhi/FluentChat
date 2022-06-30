@@ -6,10 +6,10 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "group_recent")
+@Entity(name = "t_group_recent")
 public class GroupRecentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_recent_seq")
     private Integer id;
 
     @OneToOne
