@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import './App.scss';
 import NavigationView from './component/NavigationVew';
+import IndexPage from './container/IndexPage';
 import LoginPage from './container/LoginPage';
 import SignupPage from './container/SignupPage';
 import UserManager from './container/UserManager';
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         {[...navPages, ...otherPages].filter(e => !e.auth || e.auth(user?.role)).map(e =>
           <Route key={e.path} path={e.path} element={e.element} />
         )}
+        <Route path='/' element={<IndexPage/>} />
       </Routes>
     </NavigationView>
   );
