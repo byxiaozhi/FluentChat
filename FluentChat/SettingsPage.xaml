@@ -11,7 +11,7 @@
             <TextBlock FontSize="28">设置</TextBlock>
             <local:SettingItem Description="用户昵称">
                 <local:SettingItem.Icon>
-                    <FontIcon Glyph="&#xe748;"/>
+                    <FontIcon Glyph="&#xee57;"/>
                 </local:SettingItem.Icon>
                 <local:SettingItem.Title>
                     <TextBlock Text="{x:Bind AppViewModel.UserViewModel.NickName, Mode=OneWay}"/>
