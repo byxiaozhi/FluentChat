@@ -36,7 +36,7 @@ namespace winrt::FluentChat::implementation
     {
         auto item = ListView_Groups().SelectedItem().try_as<JsonObject>();
         auto chat = AppViewModel().ChatViewModel();
-        if (chat.ChatType() != 1 || chat.ChatInfo() == nullptr || chat.ChatInfo().GetNamedNumber(L"groupId") != item.GetNamedNumber(L"groupId")) {
+        if (chat.ChatType() != 1 || chat.ChatInfo() == nullptr || item == nullptr || chat.ChatInfo().GetNamedNumber(L"groupId") != item.GetNamedNumber(L"groupId")) {
             chat.ChatType(1);
             chat.ChatView(0);
             chat.ChatInfo(item);
