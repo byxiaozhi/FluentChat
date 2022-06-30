@@ -30,7 +30,7 @@ namespace winrt::FluentChat::implementation
 		{
 			EnsureClose(m_streamSocket);
 			m_streamSocket = Windows::Networking::Sockets::StreamSocket();
-			co_await m_streamSocket.ConnectAsync(HostName{ L"localhost" }, L"8000");
+			co_await m_streamSocket.ConnectAsync(HostName{ L"101.32.62.116" }, L"8000");
 			MessageLoop();
 			OnConnect();
 			co_return true;

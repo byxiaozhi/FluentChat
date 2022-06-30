@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(whiteList).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/**").authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/api/user/login")
