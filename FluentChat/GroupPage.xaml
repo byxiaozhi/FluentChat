@@ -36,8 +36,10 @@
                             <TextBlock Text="{Binding Converter={StaticResource JsonObjectConverter}, ConverterParameter=name}"/>
                             <ListViewItem.ContextFlyout>
                                 <MenuFlyout AreOpenCloseAnimationsEnabled="False">
-                                    <MenuFlyoutItem Text="修改备注"/>
-                                    <MenuFlyoutItem Text="退出群聊"/>
+                                    <MenuFlyoutItem Tag="{Binding}" Text="修改备注"/>
+                                    <MenuFlyoutItem Tag="{Binding}" Text="修改群聊名称"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Tag="{Binding}" Text="退出群聊"/>
                                 </MenuFlyout>
                             </ListViewItem.ContextFlyout>
                         </ListViewItem>

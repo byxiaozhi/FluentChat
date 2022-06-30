@@ -86,6 +86,7 @@ namespace winrt::FluentChat::implementation
 			auto str = resp.ToString();
 			if (resp.GetNamedBoolean(L"success")) {
 				AppViewModel().UserViewModel().IsLogin(true);
+				AppViewModel().UserViewModel().NickName(resp.GetNamedString(L"nickname"));
 			}
 			else {
 				co_await ContentDialog(L"登录失败", resp.GetNamedString(L"message"));
