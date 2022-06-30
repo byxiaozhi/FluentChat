@@ -20,8 +20,8 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBlock FontSize="18" Margin="4,0,0,0">好友列表</TextBlock>
-                    <Button Style="{ThemeResource EllipsisButton}" Height="36" Width="36" Margin="-8">
-                        <FontIcon Glyph="&#xf78b;" FontSize="12"/>
+                    <Button Style="{ThemeResource EllipsisButton}" Height="36" Width="36" Margin="-8" Click="Reload_Click">
+                        <FontIcon Glyph="&#xe895;" FontSize="12"/>
                     </Button>
                 </StackPanel>
             </Grid>

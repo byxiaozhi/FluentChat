@@ -41,7 +41,14 @@ namespace winrt::FluentChat::implementation
             chat.ChatInfo(item);
         }
     }
+    void GroupPage::Reload_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        ListView_Groups_Loaded(ListView_Groups(), nullptr);
+    }
 }
+
+
+
 
 
 

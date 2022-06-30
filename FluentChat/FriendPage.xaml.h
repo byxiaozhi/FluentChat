@@ -13,6 +13,7 @@ namespace winrt::FluentChat::implementation
         void ListView_Friends_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         winrt::Windows::Foundation::IAsyncAction DeleleFriend_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::Windows::Foundation::IAsyncAction ContentDialog(hstring title, hstring content);
+        void Reload_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

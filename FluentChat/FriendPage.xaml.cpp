@@ -77,7 +77,14 @@ namespace winrt::FluentChat::implementation
 		dialog.CloseButtonText(L"确定");
 		co_await dialog.ShowAsync();
 	}
+	void FriendPage::Reload_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		ListView_Friends_Loaded(ListView_Friends(), nullptr);
+	}
 }
+
+
+
 
 
 
