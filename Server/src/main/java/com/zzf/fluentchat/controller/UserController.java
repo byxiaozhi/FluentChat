@@ -4,6 +4,7 @@ import com.zzf.fluentchat.component.EntityConverter;
 import com.zzf.fluentchat.entity.UserEntity;
 import com.zzf.fluentchat.model.Resp;
 import com.zzf.fluentchat.model.Signup;
+import com.zzf.fluentchat.repository.FriendRepository;
 import com.zzf.fluentchat.repository.UserRepository;
 import com.zzf.fluentchat.service.UserService;
 import org.springframework.data.domain.PageRequest;
@@ -35,11 +36,14 @@ public class UserController {
 
     final EntityConverter entityConverter;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, UserService userService, EntityConverter entityConverter) {
+    final FriendRepository friendRepository;
+
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, UserService userService, EntityConverter entityConverter, FriendRepository friendRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.entityConverter = entityConverter;
+        this.friendRepository = friendRepository;
     }
 
     public Map<String, Object> route(String action, Map<String, Object> args, Map<String, Object> session) throws Exception {
@@ -197,6 +201,7 @@ public class UserController {
         if (opt.isEmpty())
             return new Resp(Resp.Code.FAILURE, "用户不存在");
         var user = opt.get();
+        friendRepository.deleteAllFriend(user);
         userRepository.delete(user);
         return new Resp(Resp.Code.SUCCESS, "删除成功");
     }
