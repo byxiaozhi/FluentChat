@@ -12,7 +12,7 @@ interface IUser {
 
 const pageSize = 5;
 
-const roleMap: Record<string, string> = { 'user': '普通用户', 'admin': '管理员', 'uploader': '上传用户', 'collector': '采集用户' }
+const roleMap: Record<string, string> = { 'user': '普通用户', 'admin': '管理员' }
 
 const UserManager: React.FC = () => {
     const [page, setPage] = useState(1)
@@ -91,7 +91,7 @@ const UserManager: React.FC = () => {
                                         </>}
                                         {editing == item && <>
                                             <Select size="small" sx={{ margin: '-4px 0 -4px 0', width: 140 }} value={editRole} onChange={e => setEditRole(e.target.value)}>
-                                                {Object.keys(roleMap).filter(x => x != 'admin').map(e => (
+                                                {Object.keys(roleMap).map(e => (
                                                     <MenuItem key={e} value={e}>{roleMap[e]}</MenuItem>
                                                 ))}
                                             </Select>
@@ -100,7 +100,7 @@ const UserManager: React.FC = () => {
                                     <TableCell>
                                         <Stack direction={'row'}>
                                             {editing != item && <>
-                                                <Button onClick={() => editUser(item)} disabled={item.role == 'admin'}>编辑</Button>
+                                                <Button onClick={() => editUser(item)}>编辑</Button>
                                                 <Button onClick={() => setDeleteDialog(item)} disabled={item.role == 'admin'}>删除</Button>
                                             </>}
                                             {editing == item && <>
