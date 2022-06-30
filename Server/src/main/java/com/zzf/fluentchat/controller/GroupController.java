@@ -87,7 +87,13 @@ public class GroupController {
     }
 
     public Map<String, Object> quit(Map<String, Object> args, Map<String, Object> session) {
-        return null;
+        var user = (UserEntity) session.get("user");
+        var groupId = (int)args.get("groupId");
+        var group = groupRepository.findById(groupId);
+        if(group.isEmpty())
+            return Map.of("success", false, "message", "群号不存在");
+        memberRepository.deleteMember(group.get(), user);
+        return Map.of("success", true, "message", "退出群聊成功");
     }
 
 }

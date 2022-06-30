@@ -65,9 +65,28 @@ namespace winrt::FluentChat::implementation
         ContentDialog(L"改不了", L"还没写这个功能");
     }
 
-    void GroupPage::ExitGroup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    winrt::Windows::Foundation::IAsyncAction GroupPage::ExitGroup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
-        ContentDialog(L"退出不了", L"还没写这个功能");
+        auto item = sender.as<MenuFlyoutItem>().Tag().as<JsonObject>();
+        auto dialog = Controls::ContentDialog();
+        dialog.XamlRoot(this->XamlRoot());
+        dialog.Title(box_value(L"退出群聊"));
+        dialog.Content(box_value(L"确定退出群聊？"));
+        dialog.PrimaryButtonText(L"退出");
+        dialog.CloseButtonText(L"取消");
+        dialog.DefaultButton(ContentDialogButton::Close);
+        auto result = co_await dialog.ShowAsync();
+        if (result == ContentDialogResult::Primary)
+        {
+
+            try {
+                co_await TransportService().InvokeAsync(L"group", L"quit", item);
+                co_await ListView_Groups_Loaded(ListView_Groups(), nullptr);
+            }
+            catch (winrt::hresult_error const& ex) {
+                ContentDialog(L"退出失败", L"未知错误");
+            }
+        }
     }
 }
 
