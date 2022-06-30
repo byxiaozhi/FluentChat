@@ -20,6 +20,7 @@ const UserManager: React.FC = () => {
     const [data, setData] = useState<IUser[]>([])
     const [deleteDialog, setDeleteDialog] = useState<IUser>()
     const [editing, setEditing] = useState<IUser>()
+    const [editNickname, setEditNickname] = useState('')
     const [editRole, setEditRole] = useState('')
     const [query, setQuery] = useState('')
 
@@ -40,17 +41,18 @@ const UserManager: React.FC = () => {
 
     const editUser = useCallback((user: IUser) => {
         setEditRole(user.role)
+        setEditNickname(user.nickName)
         setEditing(user)
     }, [])
 
     const saveUser = useCallback(async () => {
         if (!editing) return;
-        const res = await post('/api/user/editRole', { id: editing.id, role: editRole })
+        const res = await post('/api/user/editUser', { id: editing.id, role: editRole, nickName: editNickname })
         if (res.data.code == 0) {
             await loadData()
         }
         setEditing(undefined)
-    }, [editRole, editing, loadData])
+    }, [editRole, editing, editNickname, loadData])
 
     useEffect(() => {
         loadData()
@@ -80,7 +82,12 @@ const UserManager: React.FC = () => {
                             {data.map(item => (
                                 <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     <TableCell>
-                                        {item.nickName}
+                                        {editing != item && <>
+                                            {item.nickName}
+                                        </>}
+                                        {editing == item && <>
+                                            <TextField size="small" sx={{ margin: '-4px 0 -4px 0', width: 140 }} value={editNickname} onChange={handleValueChange(setEditNickname)} />
+                                        </>}
                                     </TableCell>
                                     <TableCell>
                                         {item.email}

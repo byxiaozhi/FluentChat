@@ -184,13 +184,14 @@ public class UserController {
         return new Resp(Resp.Code.SUCCESS, "读取成功", Map.of("list", list, "total", total));
     }
 
-    @RequestMapping(value = "editRole", method = RequestMethod.POST)
-    public Resp editRole(int id, String role) {
+    @RequestMapping(value = "editUser", method = RequestMethod.POST)
+    public Resp editRole(int id, String role, String nickName) {
         var opt = userRepository.findById(id);
         if (opt.isEmpty())
             return new Resp(Resp.Code.FAILURE, "用户不存在");
         var user = opt.get();
         user.setRole(role);
+        user.setNickname(nickName);
         userRepository.save(user);
         return new Resp(Resp.Code.SUCCESS, "修改成功");
     }
