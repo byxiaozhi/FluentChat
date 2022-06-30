@@ -186,4 +186,14 @@ public class UserController {
         userRepository.save(user);
         return new Resp(Resp.Code.SUCCESS, "修改成功");
     }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public Resp delete(int id) {
+        var opt = userRepository.findById(id);
+        if (opt.isEmpty())
+            return new Resp(Resp.Code.FAILURE, "用户不存在");
+        var user = opt.get();
+        userRepository.delete(user);
+        return new Resp(Resp.Code.SUCCESS, "删除成功");
+    }
 }
