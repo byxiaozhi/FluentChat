@@ -42,6 +42,7 @@ public class UserController {
         return switch (action) {
             case "signup" -> signup(args);
             case "login" -> login(args, session);
+            case "editNickname" -> editNickname(args, session);
             default -> throw new Exception("action does not exist");
         };
     }
@@ -114,6 +115,18 @@ public class UserController {
             }
         }
         return map;
+    }
+
+    public Map<String, Object> editNickname(Map<String, Object> args, Map<String, Object> session) {
+        var nickname = args.get("nickname").toString();
+        var user = (UserEntity) session.get("user");
+        if (nickname.isEmpty())
+            return Map.of("success", false, "message", "昵称不能为空");
+        else if (nickname.length() < 2)
+            return Map.of("success", false, "message", "昵称不能小于2位");
+        user.setNickname(nickname);
+        userRepository.save(user);
+        return Map.of("success", true, "message", "操作成功");
     }
 
     public static boolean isInvalidEmailAddress(String email) {

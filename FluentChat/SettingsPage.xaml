@@ -9,11 +9,30 @@
     <ScrollViewer>
         <StackPanel Margin="32" Spacing="8">
             <TextBlock FontSize="28">设置</TextBlock>
-            <local:SettingItem>
+            <local:SettingItem Description="用户昵称">
                 <local:SettingItem.Icon>
                     <FontIcon Glyph="&#xe748;"/>
                 </local:SettingItem.Icon>
-                <local:SettingItem.Title>注销登录</local:SettingItem.Title>
+                <local:SettingItem.Title>
+                    <TextBlock Text="{x:Bind AppViewModel.UserViewModel.NickName, Mode=OneWay}"/>
+                </local:SettingItem.Title>
+                <local:SettingItem.Operate>
+                    <Button Content="修改昵称">
+                        <Button.Flyout>
+                            <Flyout x:Name="EditNickname_Flyout">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <TextBox PlaceholderText="新昵称" MinWidth="100" x:Name="NewNickName" Text="{x:Bind AppViewModel.UserViewModel.NickName, Mode=OneWay}"/>
+                                    <Button Content="保存" x:Name="EditNickname_Button" Click="EditNickname_Click"/>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </local:SettingItem.Operate>
+            </local:SettingItem>
+            <local:SettingItem Title="{x:Bind AppViewModel.UserViewModel.Email}" Description="当前账号">
+                <local:SettingItem.Icon>
+                    <FontIcon Glyph="&#xe748;"/>
+                </local:SettingItem.Icon>
                 <local:SettingItem.Operate>
                     <Button Click="Logout_Click">注销</Button>
                 </local:SettingItem.Operate>

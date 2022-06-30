@@ -20,11 +20,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Viewbox MaxWidth="16" MaxHeight="16">
-            <ContentControl Content="{x:Bind Icon}" VerticalAlignment="Center"/>
+            <ContentControl Content="{x:Bind Icon, Mode=OneWay}" VerticalAlignment="Center" IsTabStop="False"/>
         </Viewbox>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <ContentControl Content="{x:Bind Title, Mode=OneWay}"/>
-            <ContentControl Content="{x:Bind Description, Mode=OneWay}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondary}"/>
+            <ContentControl Content="{x:Bind Title, Mode=OneWay}" IsTabStop="False"/>
+            <ContentControl Content="{x:Bind Description, Mode=OneWay}" IsTabStop="False" FontSize="12" Foreground="{ThemeResource TextFillColorSecondary}"/>
         </StackPanel>
         <ContentControl Grid.Column="2" VerticalAlignment="Center" Content="{x:Bind Operate, Mode=OneWay}"/>
     </Grid>

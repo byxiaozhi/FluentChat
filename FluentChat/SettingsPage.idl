@@ -1,8 +1,11 @@
+import "AppViewModel.idl";
+
 namespace FluentChat
 {
     [default_interface]
-    runtimeclass SettingsPage : Microsoft.UI.Xaml.Controls.Page
+    runtimeclass SettingsPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         SettingsPage();
+        AppViewModel AppViewModel{ get; };
     }
 }
