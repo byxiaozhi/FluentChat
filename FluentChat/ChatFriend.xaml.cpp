@@ -30,20 +30,24 @@ namespace winrt::FluentChat::implementation
 	}
 	IAsyncAction ChatFriend::Button_SendMsg_Click(IInspectable const& sender, RoutedEventArgs const& e)
 	{
-		auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
-		auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
-		JsonObject json;
-		json.SetNamedValue(L"friendId", friendId);
-		json.SetNamedValue(L"message", message);
-
-		auto response = co_await TransportService().InvokeAsync(L"message", L"sendFriendMessage", json);
-		if (response.GetNamedBoolean(L"success")) {
-			TextBox_Send().Text(L"");
+		try {
+			auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
+			auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
 			JsonObject json;
-			json.SetNamedValue(L"nickName", JsonValue::CreateStringValue(AppViewModel().UserViewModel().NickName()));
+			json.SetNamedValue(L"friendId", friendId);
 			json.SetNamedValue(L"message", message);
-			json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
-			ListView_Messages().Items().Append(json);
+			auto response = co_await TransportService().InvokeAsync(L"message", L"sendFriendMessage", json);
+			if (response.GetNamedBoolean(L"success")) {
+				TextBox_Send().Text(L"");
+				JsonObject json;
+				json.SetNamedValue(L"nickName", JsonValue::CreateStringValue(AppViewModel().UserViewModel().NickName()));
+				json.SetNamedValue(L"message", message);
+				json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
+				ListView_Messages().Items().Append(json);
+			}
+		}
+		catch (winrt::hresult_error const& ex) {
+			ContentDialog(L"发送失败", L"未知错误");
 		}
 	}
 	IAsyncAction ChatFriend::ListView_Messages_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
@@ -95,6 +99,15 @@ namespace winrt::FluentChat::implementation
 	{
 		auto position = args.GetNamedString(L"position");
 		return position == L"right" ? HorizontalAlignment::Right : HorizontalAlignment::Left;
+	}
+	IAsyncAction ChatFriend::ContentDialog(hstring title, hstring content)
+	{
+		auto dialog = Controls::ContentDialog();
+		dialog.XamlRoot(this->XamlRoot());
+		dialog.Title(box_value(title));
+		dialog.Content(box_value(content));
+		dialog.CloseButtonText(L"确定");
+		co_await dialog.ShowAsync();
 	}
 	void ChatFriend::ChatViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
 	{

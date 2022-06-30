@@ -30,21 +30,26 @@ namespace winrt::FluentChat::implementation
 	}
 	IAsyncAction ChatGroup::Button_SendMsg_Click(IInspectable const& sender, RoutedEventArgs const& e)
 	{
-		auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
-		auto groupId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"groupId");
-		JsonObject json;
-		json.SetNamedValue(L"groupId", groupId);
-		json.SetNamedValue(L"message", message);
-		auto response = co_await TransportService().InvokeAsync(L"message", L"sendGroupMessage", json);
-		if (response.GetNamedBoolean(L"success")) {
-			TextBox_Send().Text(L"");
+		try {
+			auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
+			auto groupId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"groupId");
 			JsonObject json;
-			JsonObject from;
-			from.SetNamedValue(L"nickName", JsonValue::CreateStringValue(AppViewModel().UserViewModel().NickName()));
-			json.SetNamedValue(L"from", from);
+			json.SetNamedValue(L"groupId", groupId);
 			json.SetNamedValue(L"message", message);
-			json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
-			ListView_Messages().Items().Append(json);
+			auto response = co_await TransportService().InvokeAsync(L"message", L"sendGroupMessage", json);
+			if (response.GetNamedBoolean(L"success")) {
+				TextBox_Send().Text(L"");
+				JsonObject json;
+				JsonObject from;
+				from.SetNamedValue(L"nickName", JsonValue::CreateStringValue(AppViewModel().UserViewModel().NickName()));
+				json.SetNamedValue(L"from", from);
+				json.SetNamedValue(L"message", message);
+				json.SetNamedValue(L"position", JsonValue::CreateStringValue(L"right"));
+				ListView_Messages().Items().Append(json);
+			}
+		}
+		catch (winrt::hresult_error const& ex) {
+			ContentDialog(L"发送失败", L"未知错误");
 		}
 	}
 	IAsyncAction ChatGroup::ListView_Messages_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
@@ -102,6 +107,10 @@ namespace winrt::FluentChat::implementation
 		auto from = args.GetNamedObject(L"from").GetObjectW();
 		auto nickName = from.GetNamedString(L"nickName");
 		return nickName;
+	}
+	IAsyncAction ChatGroup::ContentDialog(hstring title, hstring content)
+	{
+		return IAsyncAction();
 	}
 	void ChatGroup::ChatViewModel_PropertyChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs const& e)
 	{

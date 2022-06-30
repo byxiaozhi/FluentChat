@@ -6,6 +6,8 @@
 #include "winrt/Microsoft.UI.Xaml.Input.h"
 #include "ChatGroup.g.h"
 
+using namespace winrt::Windows::Foundation;
+
 namespace winrt::FluentChat::implementation
 {
     struct ChatGroup : ChatGroupT<ChatGroup>
@@ -23,6 +25,7 @@ namespace winrt::FluentChat::implementation
         void OnDispatch(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Data::Json::JsonObject const& e);
         static Microsoft::UI::Xaml::HorizontalAlignment BubblePositionConverter(Windows::Data::Json::JsonObject args);
         static winrt::hstring DisplayNameConverter(Windows::Data::Json::JsonObject args);
+        IAsyncAction ContentDialog(hstring title, hstring content);
         winrt::event_token m_ChatViewModel_EventToken;
         winrt::event_token m_OnDispatch_EventToken;
     };
