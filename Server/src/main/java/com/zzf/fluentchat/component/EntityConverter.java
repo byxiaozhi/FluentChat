@@ -46,6 +46,7 @@ public class EntityConverter {
         map.put("createDate", group.getCreateDate());
         map.put("groupAlias", member.getGroupAlias());
         map.put("memberAlias", member.getMemberAlias());
+        map.put("nickName", member.getUser().getNickname());
         return map;
     }
 
