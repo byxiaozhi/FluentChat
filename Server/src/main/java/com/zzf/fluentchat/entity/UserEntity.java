@@ -35,6 +35,18 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private Date updateDate = new Date();
 
+    @Column(nullable = false)
+    private boolean expired = false;
+
+    @Column(nullable = false)
+    private boolean locked = false;
+
+    @Column(nullable = false)
+    private boolean credentialsExpired = false;
+
+    @Column(nullable = false)
+    private boolean enabled = false;
+
     @OneToMany
     @JoinColumn(name = "user_id")
     private Set<FriendEntity> friends;
@@ -79,22 +91,22 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !credentialsExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !enabled;
     }
 
     public void setPassword(String password) {
@@ -131,5 +143,33 @@ public class UserEntity implements UserDetails {
 
     public void setFriends(Set<FriendEntity> friends) {
         this.friends = friends;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean isCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

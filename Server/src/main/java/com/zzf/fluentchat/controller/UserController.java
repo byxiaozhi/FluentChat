@@ -97,6 +97,14 @@ public class UserController {
                 map.put("message", "邮箱不存在");
             else if (!user.getPassword().equals(password))
                 map.put("message", "密码错误");
+            else if (!user.isEnabled())
+                map.put("message", "账号不可用");
+            else if (!user.isAccountNonExpired())
+                map.put("message", "账号过期");
+            else if (!user.isAccountNonLocked())
+                map.put("message", "账号被锁定");
+            else if (!user.isCredentialsNonExpired())
+                map.put("message", "密码过期");
             else {
                 map.put("success", true);
                 map.put("message", "登录成功");
@@ -137,7 +145,7 @@ public class UserController {
 
     @RequestMapping(value = "info", method = RequestMethod.GET)
     public Resp info(Principal principal) {
-        if(principal == null)
+        if (principal == null)
             return new Resp(Resp.Code.FAILURE, "未登录");
         var user = userService.loadUserByEmail(principal.getName());
         var ret = new HashMap<String, Object>();
@@ -158,7 +166,7 @@ public class UserController {
     @RequestMapping(value = "editRole", method = RequestMethod.POST)
     public Resp editRole(int id, String role) {
         var opt = userRepository.findById(id);
-        if(opt.isEmpty())
+        if (opt.isEmpty())
             return new Resp(Resp.Code.FAILURE, "用户不存在");
         var user = opt.get();
         user.setRole(role);
