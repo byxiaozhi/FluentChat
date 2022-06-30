@@ -30,6 +30,8 @@ namespace winrt::FluentChat::implementation
 	}
 	IAsyncAction ChatFriend::Button_SendMsg_Click(IInspectable const& sender, RoutedEventArgs const& e)
 	{
+		if (TextBox_Send().Text() == L"")
+			return;
 		try {
 			auto message = JsonValue::CreateStringValue(TextBox_Send().Text());
 			auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
