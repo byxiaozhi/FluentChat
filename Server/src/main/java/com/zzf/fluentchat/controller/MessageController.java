@@ -1,10 +1,7 @@
 package com.zzf.fluentchat.controller;
 
 import com.zzf.fluentchat.component.EntityConverter;
-import com.zzf.fluentchat.entity.FriendMessageEntity;
-import com.zzf.fluentchat.entity.FriendRecentEntity;
-import com.zzf.fluentchat.entity.GroupMessageEntity;
-import com.zzf.fluentchat.entity.UserEntity;
+import com.zzf.fluentchat.entity.*;
 import com.zzf.fluentchat.repository.*;
 import com.zzf.fluentchat.service.NotificationService;
 import org.springframework.data.domain.PageRequest;
@@ -169,6 +166,11 @@ public class MessageController {
         message.setTo(group);
         message.setMessage(args.get("message").toString());
         groupMessageRepository.save(message);
+        var recent = new GroupRecentEntity();
+        recent.setUser(user);
+        recent.setTo(group);
+        recent.setMessage(message);
+        groupRecentRepository.save(recent);
         var map = Map.of("from", entityConverter.convert(member.get()), "message", message.getMessage());
         for (var otherMember : memberRepository.findByGroup(group, Pageable.unpaged()).stream().filter(x -> !x.getId().equals(member.get().getId())).toList())
             notificationService.sendToUser(otherMember.getUser().getId(), "groupMessageReceive", map);
