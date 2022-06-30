@@ -1,5 +1,6 @@
 package com.zzf.fluentchat.controller;
 
+import com.zzf.fluentchat.component.EntityConverter;
 import com.zzf.fluentchat.entity.UserEntity;
 import com.zzf.fluentchat.model.Resp;
 import com.zzf.fluentchat.model.Signup;
@@ -32,10 +33,13 @@ public class UserController {
 
     final UserService userService;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, UserService userService) {
+    final EntityConverter entityConverter;
+
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, UserService userService, EntityConverter entityConverter) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.entityConverter = entityConverter;
     }
 
     public Map<String, Object> route(String action, Map<String, Object> args, Map<String, Object> session) throws Exception {
@@ -171,7 +175,7 @@ public class UserController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public Resp list(int page, int count, String query) {
         var pageable = PageRequest.of(page, count);
-        var list = userRepository.selectAll(pageable, query);
+        var list = userRepository.selectAll(pageable, query).stream().map(entityConverter::convert);
         var total = userRepository.count();
         return new Resp(Resp.Code.SUCCESS, "读取成功", Map.of("list", list, "total", total));
     }

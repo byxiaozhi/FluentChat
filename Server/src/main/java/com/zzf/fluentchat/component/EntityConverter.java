@@ -14,6 +14,7 @@ public class EntityConverter {
         map.put("userId", user.getId());
         map.put("nickName", user.getNickname());
         map.put("email", user.getEmail());
+        map.put("role", user.getRole());
         return map;
     }
 

@@ -5,7 +5,7 @@ import { handleValueChange } from "src/utility/common";
 
 interface IUser {
     id: number
-    username: string
+    nickName: string
     email: string
     role: string
 }
@@ -70,7 +70,7 @@ const UserManager: React.FC = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ width: 300 }}>用户名</TableCell>
+                                <TableCell sx={{ width: 300 }}>昵称</TableCell>
                                 <TableCell sx={{ width: 300 }}>邮箱</TableCell>
                                 <TableCell sx={{ width: 300 }}>身份</TableCell>
                                 <TableCell sx={{ width: 150 }}>操作</TableCell>
@@ -80,7 +80,7 @@ const UserManager: React.FC = () => {
                             {data.map(item => (
                                 <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     <TableCell>
-                                        {item.username}
+                                        {item.nickName}
                                     </TableCell>
                                     <TableCell>
                                         {item.email}
@@ -128,7 +128,7 @@ const UserManager: React.FC = () => {
             </DialogTitle>
             <DialogContent sx={{ minWidth: 300 }} >
                 <DialogContentText>
-                    确认删除“{deleteDialog?.username}”吗
+                    确认删除“{deleteDialog?.nickName}”吗
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
