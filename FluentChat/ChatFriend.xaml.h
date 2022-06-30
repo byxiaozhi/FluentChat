@@ -24,7 +24,7 @@ namespace winrt::FluentChat::implementation
         void SendMessage_Invoked(winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator const& sender, winrt::Microsoft::UI::Xaml::Input::KeyboardAcceleratorInvokedEventArgs const& args);
         void OnDispatch(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Data::Json::JsonObject const& e);
         static Microsoft::UI::Xaml::HorizontalAlignment BubblePositionConverter(Windows::Data::Json::JsonObject args);
-        IAsyncAction ContentDialog(hstring title, hstring content);
+        Windows::Foundation::IAsyncAction ContentDialog(hstring title, hstring content);
         winrt::event_token m_ChatViewModel_EventToken;
         winrt::event_token m_OnDispatch_EventToken;
     };

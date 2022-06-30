@@ -66,7 +66,12 @@ namespace winrt::FluentChat::implementation
 	}
 	IAsyncAction ChatFriend::LoadMessage()
 	{
-		auto friendId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"friendId");
+		auto chatInfo = AppViewModel().ChatViewModel().ChatInfo();
+		if (chatInfo == nullptr)
+			return;
+		auto friendId = chatInfo.GetNamedValue(L"friendId");
+		if (friendId == nullptr)
+			return;
 		JsonObject json;
 		json.SetNamedValue(L"friendId", friendId);
 		auto response = co_await TransportService().InvokeAsync(L"message", L"getFriendMessages", json);

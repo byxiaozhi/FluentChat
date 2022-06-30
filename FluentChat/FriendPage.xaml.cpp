@@ -39,12 +39,48 @@ namespace winrt::FluentChat::implementation
 	{
 		auto item = ListView_Friends().SelectedItem().try_as<JsonObject>();
 		auto chat = AppViewModel().ChatViewModel();
-		if (chat.ChatType() != 0 || chat.ChatInfo() == nullptr || chat.ChatInfo().GetNamedNumber(L"friendId") != item.GetNamedNumber(L"friendId")) {
+		if (chat.ChatType() != 0 || chat.ChatInfo() == nullptr || item == nullptr || chat.ChatInfo().GetNamedNumber(L"friendId") != item.GetNamedNumber(L"friendId")) {
 			chat.ChatType(0);
 			chat.ChatInfo(item);
 		}
 	}
+
+	IAsyncAction FriendPage::DeleleFriend_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		auto item = sender.as<MenuFlyoutItem>().Tag().as<JsonObject>();
+		auto dialog = Controls::ContentDialog();
+		dialog.XamlRoot(this->XamlRoot());
+		dialog.Title(box_value(L"删除好友"));
+		dialog.Content(box_value(L"该操作也会将你从对方的好友列表中删除，而且无法恢复，是否删除？"));
+		dialog.PrimaryButtonText(L"删除");
+		dialog.CloseButtonText(L"取消");
+		dialog.DefaultButton(ContentDialogButton::Close);
+		auto result = co_await dialog.ShowAsync();
+		if (result == ContentDialogResult::Primary)
+		{
+
+			try {
+				co_await TransportService().InvokeAsync(L"friend", L"delete", item);
+				co_await ListView_Friends_Loaded(ListView_Friends(), nullptr);
+			}
+			catch (winrt::hresult_error const& ex) {
+				ContentDialog(L"删除失败", L"未知错误");
+			}
+		}
+	}
+	winrt::Windows::Foundation::IAsyncAction FriendPage::ContentDialog(hstring title, hstring content)
+	{
+		auto dialog = Controls::ContentDialog();
+		dialog.XamlRoot(this->XamlRoot());
+		dialog.Title(box_value(title));
+		dialog.Content(box_value(content));
+		dialog.CloseButtonText(L"确定");
+		co_await dialog.ShowAsync();
+	}
 }
+
+
+
 
 
 

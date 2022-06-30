@@ -37,7 +37,7 @@
                             <ListViewItem.ContextFlyout>
                                 <MenuFlyout AreOpenCloseAnimationsEnabled="False">
                                     <MenuFlyoutItem Tag="{Binding}" Text="修改备注"/>
-                                    <MenuFlyoutItem Tag="{Binding}" Text="删除好友"/>
+                                    <MenuFlyoutItem Tag="{Binding}" Click="DeleleFriend_Click" Text="删除好友"/>
                                 </MenuFlyout>
                             </ListViewItem.ContextFlyout>
                         </ListViewItem>

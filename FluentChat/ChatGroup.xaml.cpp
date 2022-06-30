@@ -68,7 +68,12 @@ namespace winrt::FluentChat::implementation
 	}
 	IAsyncAction ChatGroup::LoadMessage()
 	{
-		auto groupId = AppViewModel().ChatViewModel().ChatInfo().GetNamedValue(L"groupId");
+		auto chatInfo = AppViewModel().ChatViewModel().ChatInfo();
+		if (chatInfo == nullptr)
+			return;
+		auto groupId = chatInfo.GetNamedValue(L"groupId");
+		if (groupId == nullptr)
+			return;
 		JsonObject json;
 		json.SetNamedValue(L"groupId", groupId);
 		auto response = co_await TransportService().InvokeAsync(L"message", L"getGroupMessages", json);

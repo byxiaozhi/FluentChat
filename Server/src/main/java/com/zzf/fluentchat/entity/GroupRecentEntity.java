@@ -1,5 +1,8 @@
 package com.zzf.fluentchat.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,10 +14,12 @@ public class GroupRecentEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
     @OneToOne
     @JoinColumn(name = "group_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private GroupEntity to;
 
     @Column(nullable = false)
@@ -22,6 +27,7 @@ public class GroupRecentEntity {
 
     @OneToOne
     @JoinColumn(name = "message_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private GroupMessageEntity message;
 
     public Integer getId() {

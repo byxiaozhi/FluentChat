@@ -47,7 +47,7 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private boolean enabled = false;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     private Set<FriendEntity> friends;
 

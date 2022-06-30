@@ -17,7 +17,7 @@ public class GroupEntity {
     @Column(nullable = false)
     private Date createDate = new Date();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "group_id")
     private Set<MemberEntity> members;
 

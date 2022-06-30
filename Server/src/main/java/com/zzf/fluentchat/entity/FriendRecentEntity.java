@@ -1,5 +1,8 @@
 package com.zzf.fluentchat.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,10 +14,12 @@ public class FriendRecentEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
     @OneToOne
     @JoinColumn(name = "friend_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private FriendEntity to;
 
     @Column(nullable = false)
@@ -22,6 +27,7 @@ public class FriendRecentEntity {
 
     @OneToOne
     @JoinColumn(name = "message_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private FriendMessageEntity message;
 
     public Integer getId() {
