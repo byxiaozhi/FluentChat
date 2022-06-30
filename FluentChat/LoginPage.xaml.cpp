@@ -27,11 +27,15 @@ namespace winrt::FluentChat::implementation
 
 	void LoginPage::UserViewModel_PropertyChanged(IInspectable const& sender, PropertyChangedEventArgs const& e)
 	{
-		if (e.PropertyName() == L"Email") {
-			m_settings.Values().Insert(L"Email", winrt::box_value(AppViewModel().UserViewModel().Email()));
+		try {
+			if (e.PropertyName() == L"Email") {
+				m_settings.Values().Insert(L"Email", winrt::box_value(AppViewModel().UserViewModel().Email()));
+			}
+			if (e.PropertyName() == L"Password" && cb_RememberPassword().IsChecked().GetBoolean()) {
+				m_settings.Values().Insert(L"Password", winrt::box_value(AppViewModel().UserViewModel().Password()));
+			}
 		}
-		if (e.PropertyName() == L"Password" && cb_RememberPassword().IsChecked().GetBoolean()) {
-			m_settings.Values().Insert(L"Password", winrt::box_value(AppViewModel().UserViewModel().Password()));
+		catch (winrt::hresult_error const& ex) {
 		}
 	}
 
