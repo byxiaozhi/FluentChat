@@ -9,7 +9,7 @@
   <Identity
     Name="113c053f-563d-4415-94a5-8f61cf455197"
     Publisher="CN=12283"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>FluentChat</DisplayName>

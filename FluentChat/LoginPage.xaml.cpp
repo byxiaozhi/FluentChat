@@ -28,6 +28,8 @@ namespace winrt::FluentChat::implementation
 	void LoginPage::UserViewModel_PropertyChanged(IInspectable const& sender, PropertyChangedEventArgs const& e)
 	{
 		try {
+			if (m_settings == nullptr)
+				return;
 			if (e.PropertyName() == L"Email") {
 				m_settings.Values().Insert(L"Email", winrt::box_value(AppViewModel().UserViewModel().Email()));
 			}
