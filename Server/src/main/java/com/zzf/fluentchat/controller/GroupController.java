@@ -93,6 +93,8 @@ public class GroupController {
         if(group.isEmpty())
             return Map.of("success", false, "message", "群号不存在");
         memberRepository.deleteMember(group.get(), user);
+        if(memberRepository.findByGroup(group.get(), Pageable.unpaged()).stream().findAny().isEmpty())
+            groupRepository.delete(group.get());
         return Map.of("success", true, "message", "退出群聊成功");
     }
 
