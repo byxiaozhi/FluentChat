@@ -27,11 +27,11 @@
             </NavigationViewItem>
         </NavigationView.FooterMenuItems>
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="最近" Tag="RecentPage">
+            <!--<NavigationViewItem Content="最近" Tag="RecentPage">
                 <NavigationViewItem.Icon>
                     <FontIcon FontSize="12" Glyph="&#xe823;"/>
                 </NavigationViewItem.Icon>
-            </NavigationViewItem>
+            </NavigationViewItem>-->
             <NavigationViewItem Content="好友" Tag="FriendPage">
                 <NavigationViewItem.Icon>
                     <FontIcon FontSize="12" Glyph="&#xe8f2;"/>
