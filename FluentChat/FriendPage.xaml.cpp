@@ -69,6 +69,10 @@ namespace winrt::FluentChat::implementation
 			}
 		}
 	}
+	void FriendPage::EditAlias_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		ContentDialog(L"改不了", L"还没写这个功能");
+	}
 	winrt::Windows::Foundation::IAsyncAction FriendPage::ContentDialog(hstring title, hstring content)
 	{
 		auto dialog = Controls::ContentDialog();
@@ -83,6 +87,9 @@ namespace winrt::FluentChat::implementation
 		ListView_Friends_Loaded(ListView_Friends(), nullptr);
 	}
 }
+
+
+
 
 
 

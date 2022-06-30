@@ -46,7 +46,33 @@ namespace winrt::FluentChat::implementation
     {
         ListView_Groups_Loaded(ListView_Groups(), nullptr);
     }
+    winrt::Windows::Foundation::IAsyncAction GroupPage::ContentDialog(hstring title, hstring content)
+    {
+        auto dialog = Controls::ContentDialog();
+        dialog.XamlRoot(this->XamlRoot());
+        dialog.Title(box_value(title));
+        dialog.Content(box_value(content));
+        dialog.CloseButtonText(L"确定");
+        co_await dialog.ShowAsync();
+    }
+    void GroupPage::EditAlias_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        ContentDialog(L"改不了", L"还没写这个功能");
+    }
+
+    void GroupPage::EditGroupName_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        ContentDialog(L"改不了", L"还没写这个功能");
+    }
+
+    void GroupPage::ExitGroup_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    {
+        ContentDialog(L"退出不了", L"还没写这个功能");
+    }
 }
+
+
+
 
 
 

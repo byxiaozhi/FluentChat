@@ -14,6 +14,7 @@ namespace winrt::FluentChat::implementation
         winrt::Windows::Foundation::IAsyncAction DeleleFriend_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::Windows::Foundation::IAsyncAction ContentDialog(hstring title, hstring content);
         void Reload_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void EditAlias_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
